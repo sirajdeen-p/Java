@@ -1,0 +1,205 @@
+rev String:SIRAJ
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		
+		String s="sirajdeen p";
+		
+		for(int i=s.length()-1;i>=0;i--)
+		{
+		    System.out.print(s.charAt(i));
+		}
+		
+	}
+}
+------------------------------------
+rev the line JAVA IS PROGRAM
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		
+		String s="java is program";
+		
+		String[] d = s.split(" ");
+		
+		for(int i=d.length-1;i>=0;i--)
+		{
+		    System.out.print(d[i] + " ");
+		}
+		
+		
+		
+	}
+}
+------------------------------------
+Sorting:
+import java.util.*;
+public class Main{
+    public static void main(String args[])
+    {
+        int[] a={3,4,2,1};
+        
+        for(int i=0;i<a.length;i++)
+        {
+            for(int j=i+1;j<a.length;j++)
+            {
+                if(a[i]>a[j])
+                {
+                    int temp = a[i];
+                    a[i] = a[j];
+                    a[j] = temp;
+                }
+            }
+            System.out.print(a[i]);
+        }
+    }
+}
+---------------------------------------------
+Duplicate:
+import java.util.*;
+public class Main{
+    public static void main(String args[])
+    {
+        int[] a={3,0,2,4,2,1,4};
+        for(int i=0;i<a.length;i++)
+        {
+            for(int j=i+1;j<a.length;j++)
+            {
+                if(a[i] == a[j])
+                {
+                    System.out.print(a[i]);
+                    break;
+                }
+            }
+        }
+       
+    }
+}
+----------------------------------------------
+Diamond Slution:
+import java.util.*;
+
+class A {
+    public void a() {
+        System.out.print("a");
+    }
+}
+
+class B extends A {
+    public void b() {
+        System.out.print("b");
+    }
+}
+
+class C extends A {
+    public void c() {
+        System.out.print("c");
+    }
+}
+
+class D extends B {
+    C cInstance = new C(); // Create an instance of C
+
+    public void d() {
+        System.out.print("d");
+        cInstance.c(); // Call method c from the C instance
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+        
+        D d = new D();
+        d.d(); // Calls method d from class D
+        // Call method c from the C instance
+        d.cInstance.c(); // Calls method c from the C instance
+    }
+}
+------------------------------------------------------------
+reverse an array string:
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		
+		String[] s={ "siraj","deen","test"};
+		
+		for(int i=s.length-1;i>=0;i--)
+		{
+		    System.out.print(s[i] + " ");
+		}
+		
+	}
+}
+------------------------------------------------------------
+Filter using Streams :
+import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.stream.*;
+
+
+class Student{
+    String names ;
+    String gender;
+    
+    public Student(String names,String gender){
+        this.names = names;
+        this.gender = gender;
+    }
+    
+    public String getnames(){
+        return names;
+    }
+    
+    public void setnames(String names){
+        this.names = names;
+    }
+    
+    public String getgender(){
+        return gender;
+    }
+    
+    public void setgender(String gender){
+        this.gender = gender;
+    }
+    
+    @Override
+    public String toString(){
+        return names + " : " + gender;
+    }
+    
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+	    
+	    ArrayList<Student> studentList = new ArrayList<>();
+
+	    Student s = new Student("A","Male");
+	    Student s1 = new Student("B","FeMale");
+	    Student s2 = new Student("C","Male");
+	    
+	    studentList.add(s);
+	    studentList.add(s1);
+	    studentList.add(s2);
+	    
+	    System.out.print(studentList);
+	    System.out.println();
+	    
+	    studentList.stream()
+	        .filter(n-> n.getgender().equals("Male"))
+	        .forEach(System.out::println);
+	        
+	    
+	
+	}
+}
+-----------------------------------------------------------------
+
