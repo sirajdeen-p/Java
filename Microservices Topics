@@ -1,0 +1,26 @@
+//Microservices
+What are microservices?
+What is the difference between monolithic and microservices architecture?
+What are the advantages and challenges of using microservices?
+What is the role of the API Gateway in microservices?
+How do you design a microservice?
+How do microservices communicate with each other?
+What is the difference between synchronous and asynchronous communication in microservices?
+What protocols can be used in microservices communication (e.g., REST, gRPC, messaging)?
+What is service discovery and how is it implemented?
+What is load balancing in microservices?
+Can microservices share a database?
+How do you manage transactions across multiple microservices?
+What is the Saga Pattern and how does it work?
+What is eventual consistency?
+How do you handle failure in a microservice architecture?
+What is a circuit breaker? Explain with an example.
+What is the retry pattern in microservices?
+What is the fallback mechanism?
+How do you deploy microservices?
+What is containerization and how does Docker help in microservices?
+How does Kubernetes help in deploying and managing microservices?
+What is CI/CD and how is it used with microservices?
+How do you monitor microservices?
+How do you secure microservices communication?
+What are some best practices for designing microservices?
