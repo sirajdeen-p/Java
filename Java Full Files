@@ -1,0 +1,4299 @@
+APRIL 03:
+BASIC CODING QUES:
+*****************************************************************
+rev a string using streams:
+
+		String s = "abcd";
+
+		String g =	Stream.of(s)
+		            .map(e-> new StringBuilder(e).reverse())
+		            .collect(Collectors.joining(""));
+		System.out.print(g);
+		
+*****************************************************************
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		String s = "java is program";
+
+		String op = Stream.of(s.split(" "))
+		            .reduce("",(a,b) -> b + " " + a);
+		//System.out.println(op);
+
+		String d = "caapgemiini";
+
+		Map<String,Long> map = Stream.of(d.split(""))
+       .collect(Collectors.groupingBy(e->e,Collectors.counting()));
+		System.out.println(map);
+
+		Optional<Map.Entry<String,Long>> map2 = map.entrySet().stream()
+        //.max(Map.Entry.<String,Long>comparingByValue());
+        .sorted(Map.Entry.<String,Long>comparingByValue().reversed()).skip(1).findFirst();
+		System.out.println(map2);
+
+		Optional<String> r = map2.map(e-> e.getValue()  % 2 == 0 ? "even " : "odd ");
+		System.out.println(r);
+
+
+
+	}
+}
+*****************************************************************
+import java.util.*;
+import java.util.stream.*;
+
+
+public class Main
+{
+	public static void main(String[] args) {
+	
+	List<String> al = Arrays.asList("Apple","Banana","Orange");
+	
+    al.stream()
+        .map(e-> new StringBuilder(e).reverse().toString()).distinct().forEach(System.out::println);;
+	    
+	    al.stream()
+	        .reduce("",((a,b) -> b + a)).forEach(System.out::print);
+	        
+	        	String s = "siraj";
+	
+	String r = Stream.of(s.split(""))
+	    .reduce("",((a,b) -> b + a));
+	    System.out.print(r);
+	
+	
+
+	Long s = al.stream()
+	   // .mapToObj(Integer::compare)
+	    //.max(Comparator.comparingInt(String::length));
+	    .count();
+	    System.out.print(s);
+    
+    List<String> al = Arrays.asList("Apple", "Banana", "Orange");
+
+al.stream()
+  .map(s -> new StringBuilder(s).reverse().toString())
+  .forEach(System.out::println);
+	
+	}
+}
+*****************************************************************
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	    
+    String s = "capgemini";
+    
+    HashMap<String,Integer> hm1 = new HashMap<>();
+    for(String words : s.split("")){
+        hm1.merge(words,1,Integer::sum);
+    }
+    System.out.print(hm1);
+    
+    Optional<Map.Entry<String,Integer>> op = hm1.entrySet().stream()
+        .max(Map.Entry.<String,Integer>comparingByValue());
+        System.out.print(op);
+    
+    
+    Map<String,Long> hm = Stream.of(s.split(""))
+        .collect(Collectors.groupingBy(
+            e->e,
+            Collectors.counting()));
+            
+           // System.out.print(hm);
+            
+        Optional<Map.Entry<String,Long>> map = hm.entrySet().stream()
+            .max(Map.Entry.<String,Long>comparingByValue());
+            System.out.print(map);
+    
+    
+	}
+}
+*****************************************************************
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		
+	   List<Integer> al = Arrays.asList(1,2,3,4,5);
+	   
+	   al.stream()
+	    .map(e-> e + "is" + (e % 2 == 0 ? "odd" : "even"))
+	    .forEach(System.out::println);
+	}
+}
+*******************************************************************
+	List<String> names = Arrays.asList("John", "Alice", "Bob", "Sam","Bob");
+
+		Map<String,Long> map = names.stream()
+		    .collect(Collectors.groupingBy(
+		        e->e,
+		        Collectors.counting()));
+		        System.out.print(map);
+		        
+		       Optional<Map.Entry<String,Long>> map2 =  map.entrySet().stream()
+		            .max(Map.Entry.comparingByValue());
+		            System.out.print(map2);
+		            
+		            if(map2.isPresent()){
+		                System.out.print(map2.get().getValue() % 2 == 0);
+		            }
+        
+		
+SORT:
+	String s = "hello";
+	    
+	    Map<String,Long> map = Stream.of(s.split(""))
+	        .collect(Collectors.groupingBy(
+	            e->e,
+	            Collectors.counting()));
+	           // System.out.print(map);
+	           
+	           Optional<Map.Entry<String,Long>> map1 = map.entrySet().stream()
+	                .sorted(Map.Entry.<String,Long>comparingByValue().reversed())
+	                .skip(1)
+	                .findFirst();
+	                
+	                System.out.print(map1);
+					
+MAX:
+		String s = "hello";
+	    
+	    Map<String,Long> map = Stream.of(s.split(""))
+	        .collect(Collectors.groupingBy(
+	            e->e,
+	            Collectors.counting()));
+	           // System.out.print(map);
+	           
+	           Optional<Map.Entry<String,Long>> map1 = map.entrySet().stream()
+	                .max(Map.Entry.comparingByValue());
+	                System.out.print(map1);
+*******************************************************************
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		
+	   List<Integer> al = Arrays.asList(1,2,3,4,5);
+	   
+	   //FIND SMALLEST
+	   int small = al.stream()
+	    .sorted()
+	    .findFirst()
+	    .orElse(0);
+	    System.out.println(small);
+	    
+	    //FInd Largest
+	    int largest = al.stream()
+	        .sorted(Comparator.reverseOrder())
+	        .findFirst()
+	        .orElse(0);
+	        System.out.println(largest);
+	        
+	   //findSecond Largest
+	   int secLargest = al.stream()
+	    .sorted(Comparator.reverseOrder())
+	    .skip(1)
+	    .findFirst()
+	    .orElse(0);
+	    System.out.println(secLargest);
+	    
+	    //findSecond smallest
+	   int secSmallest =  al.stream()
+	        .sorted()
+	        .skip(1)
+	        .findFirst()
+	        .orElse(0);
+	        System.out.println(secSmallest);
+	        
+	
+	}
+}
+
+*******************************************************************
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		
+	  List<String> al = Arrays.asList("Apple","Banana","Siraj","Siraj");
+	  
+	  //words starst with S
+	  al.stream()
+	    .filter(e-> e.startsWith("S")).forEach(System.out::print);
+	    
+	   System.out.println();
+	  //words not starts with s
+	  al.stream()
+	    .filter(e-> !e.startsWith("S")).forEach(System.out::print);
+	   
+	   System.out.println();
+	  //find length
+	  int n = al.stream()
+	    .map(e->e.length())
+	    .sorted(Comparator.reverseOrder())
+	    .findFirst()
+	    .orElse(0);
+	    System.out.print(n);
+	    //.forEach(System.out::print);
+	    
+	    System.out.println();
+	    //Frequency
+	    Map<String,Long> map = al.stream()
+	        .collect(Collectors.groupingBy(
+	            e->e,
+	            Collectors.counting()));
+	            System.out.print(map);
+	            
+	    System.out.println();
+	   //Frequency with Largest
+	   Map<String,Long> map1 = al.stream()
+	    .collect(Collectors.groupingBy(
+	        e->e,
+	        Collectors.counting()));
+	        
+	        Optional<Map.Entry<String,Long>> max = map1.entrySet().stream()
+	            .max(Map.Entry.comparingByValue());
+	            System.out.print(max);
+	   
+	    System.out.println();
+	    //Frequency with second Largest
+	   Map<String,Long> map2 =  al.stream()
+	        .collect(Collectors.groupingBy(
+	            e->e,
+	            Collectors.counting()));
+	            
+	            Optional<Map.Entry<String,Long>> secLarg = map2.entrySet().stream()
+	                .sorted(Map.Entry.<String,Long>comparingByValue().reversed())
+	                .skip(1)
+	                .findFirst();
+	                System.out.println(secLarg);
+	            
+	
+	}
+}
+
+*******************************************************************
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	    
+	    List<Emplyoee> emp = new ArrayList<>();
+	    
+	    emp.add(new Emplyoee("siraj",10000,"eee"));
+	    emp.add(new Emplyoee("aabb",20000,"eee"));
+	    emp.add(new Emplyoee("bb",20000,"ece"));
+	    emp.add(new Emplyoee("bb",50000,"rrr"));
+	    
+	    //sort
+	    emp.stream()
+	        .sorted(Comparator.comparing(Emplyoee::getName)).forEach(System.out::println);
+	        
+	    //rev sort
+	    emp.stream()
+	        .sorted(Comparator.comparing(Emplyoee::getName).reversed()).forEach(System.out::println);
+	        
+	        System.out.println("***************************");
+	   //groupingBy
+	   emp.stream()
+	        .collect(Collectors.groupingBy(Emplyoee::getSalary))
+	        .forEach((k,v)-> {
+	            System.out.println(k);
+	            v.forEach(System.out::println);
+	        });
+	        
+	   //partitioningBy
+	    System.out.println("***************************");
+	   emp.stream()
+	    .collect(Collectors.partitioningBy(e->e.getName().equals("siraj")))
+	    .forEach((k,v)->{
+	        System.out.println("Key = " + k);
+	        v.forEach(System.out::println);
+	    });
+
+		
+	
+	
+	}
+}
+
+class Emplyoee{
+    
+    private String name;
+    private int salary;
+    private String dept;
+    
+    public Emplyoee(String name,int salary, String dept){
+        this.name = name;
+        this.salary = salary;
+        this.dept = dept;
+    }
+    
+    
+    public String getName(){
+        return name;
+    }
+    
+    public void setString(String name){
+        this.name = name;
+    }
+    
+    public int getSalary(){
+        return salary;
+    } 
+    
+    public void setSalary(int salary){
+        this.salary = salary;
+    }
+    
+    public String getDept(){
+        return dept;
+    }
+    
+    public void setDept(String dept){
+        this.dept = dept;
+    }
+    
+    @Override
+    public String toString(){
+        return String.format(name,salary,dept);
+    }
+    
+
+}
+
+*******************************************************************
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	
+	    int n = 123;
+	    int rem;
+	    int ans = 0;
+	    
+	    while(n > 0){
+	        rem = n % 10;
+	        ans = ans * 10 + rem;
+	        n = n / 10;
+	        
+	    }
+	    System.out.print(ans);
+	
+	
+	}
+}
+*******************************************************************
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	
+	  int n = 5;
+	  for(int i=2;i<n;i++){
+	      if(n % i == 0){
+	          System.out.print("not prime");
+	          return;
+	      }
+	  }
+	  
+	  System.out.print("prime");
+	}
+}
+*******************************************************************
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	
+	  int n = 10;
+	    for(int i=1;i<n;i++){
+	        int count = 0;
+	        for(int j =1;j<=n;j++ ){
+	            if(i%j == 0){
+	                count++;
+	            }
+	        }if(count == 2){
+	            System.out.print(i);
+	        }
+	    }
+}
+}
+*******************************************************************
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	
+	 int n = 10;
+	 int a = 0;
+	 int b = 1;
+	 System.out.print(a + " " + b + " ");
+	 for(int i=3;i<=n;i++){
+	     int c = a + b;
+	     a=b;
+	     b=c;
+	     System.out.print(c + " ");
+	 }
+}
+}
+*******************************************************************
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	
+    int a = 9;
+    int b = 6;
+    
+    a = a + b;
+    b = a - b;
+    a = a - b;
+    
+    System.out.println(a);
+    System.out.println(b);
+}
+}
+*******************************************************************
+*****************************************************************
+REVERSE A STRING : 
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+
+		String s = "siraj";
+
+		for(int i=s.length()-1; i>=0; i--) {
+			System.out.print(s.charAt(i));
+		}
+	}
+}
+*******************************************************************
+REVERSING A GIVEN WORDS : JAVA IS PROGRAM 
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+
+		String s = "JAVA IS PROGRAM";
+		
+		String d[] = s.split(" ");
+		
+		System.out.print(Arrays.toString(d));
+		
+		for(int i = d.length-1;i>=0;i--){
+		    System.out.print(d[i] + " ");
+		}
+	}
+}
+*******************************************************************
+SORTING USING STREAM:
+import java.util.*;
+import java.util.stream.*;
+public class Main
+{
+	public static void main(String[] args) {
+
+		List number = Arrays.asList(1,3,5,7,9,2,4,6);
+
+		number.stream()
+		.sorted()
+		.forEach(System.out::print);
+
+	}
+}
+*******************************************************************
+WORD COUNT:
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	
+	String s = "siraj is siraj";
+	HashMap<String,Integer> hm = new HashMap<>();
+	for(String words:s.split(" ")){
+	    hm.merge(words,1,Integer::sum);
+	    
+	}
+	System.out.print(hm);
+	
+	}
+}
+*******************************************************************
+import java.util.*;
+import java.util.stream.*;
+public class Main
+{
+	public static void main(String[] args) {
+		//System.out.println("Hello World");
+		
+		List<MyClass> myObj = new ArrayList<>();
+
+        myObj.add(new MyClass("Aaa", 1));
+        myObj.add(new MyClass("Ccc", 3));
+        myObj.add(new MyClass("Bbb", 2));
+        myObj.add(new MyClass("Eee", 5));
+        myObj.add(new MyClass("Ddd", 4));
+        myObj.add(new MyClass("Ddd", 4));
+        myObj.add(new MyClass("Ggg", 7));
+        myObj.add(new MyClass("Fff", 6));
+        myObj.add(new MyClass("Iii", 9));
+        myObj.add(new MyClass("Hhh", 8));
+        myObj.add(new MyClass("Jjj", 10));
+
+
+		
+		//System.out.println(myObj);
+		//sorting by name
+// 		myObj.stream()
+// 		    .sorted(Comparator.comparing(MyClass::getName))
+// 		    .forEach(System.out::println);
+
+        //sortin by Number
+        // 	myObj.stream()
+        // 	    .sorted(Comparator.comparing(MyClass::getNum))
+        // 	    .forEach(System.out::println);
+		    
+		  // filter 
+		  //myObj.stream()
+		  //  .filter(n->n.getNum() > 5 && n.getNum() < 10)
+		  //  .forEach(System.out::println);
+		    
+		  // myObj.stream()
+		  //      .filter(n->n.getNum() > 5 && n.getNum() < 10)
+		  //      .sorted(Comparator.comparing(MyClass::getNum).reversed())
+		  //      .forEach(System.out::println);
+		  
+		  //List<Integer> al = new ArrayList<>();
+		  
+		  //al.add(1);al.add(3);al.add(5);al.add(7);al.add(2);
+		  
+		  //al.stream()
+		  //  .sorted(Comparator.reverseOrder())
+		  //  .forEach(System.out::println);
+		  
+		    myObj.stream()
+		        .filter(n->n.getNum() > 5 && n.getNum() < 10)
+		        .sorted(Comparator.comparing(MyClass::getNum).reversed())
+		        .map(q->q.getName().toUpperCase() + " " + q.getNum())
+		        .forEach(System.out::println);
+		  
+		    
+					  	List<EM> emobj = new ArrayList<>();
+		  	emobj.add(new EM("srm","EEE","s"));
+		  		emobj.add(new EM("srm","ECE","s"));
+		  			emobj.add(new EM("srm","MECH","s"));
+		  				emobj.add(new EM("VIT","EEE","s"));
+		  					emobj.add(new EM("VIT","ECE","s"));
+		  						emobj.add(new EM("VIT","MECH","s"));
+		  						
+		  //		emobj.stream()
+		  //		    .collect(Collectors.groupingBy(EM::getClg))
+		  //		            .forEach( (clg, listEM) -> {
+    //                          System.out.println("College: " + clg);
+    //                          listEM.forEach(System.out::println);
+    //                      });
+    
+    emobj.stream()
+        .collect(Collectors.groupingBy(EM::getDept))
+        .forEach((dept,depList) -> {
+            System.out.println("dept" + dept  + "  ");
+            depList.forEach(System.out::println);});
+			
+			    emobj.stream()
+        .collect(Collectors.partitioningBy(n-> n.getDept().equals("EEE")))
+        .forEach((Key,value) -> {
+            System.out.println(Key );
+            value.forEach(System.out::println);
+        });
+        
+		
+		
+		
+	}
+}
+
+
+class EM {
+
+    private String clg;
+    private String dept;
+    private String name;
+
+    public EM(String clg, String dept, String name) {
+        this.clg = clg;
+        this.dept = dept;
+        this.name = name;
+    }
+
+    // Getter for clg
+    public String getClg() {
+        return clg;
+    }
+
+    // Setter for clg
+    public void setClg(String clg) {
+        this.clg = clg;
+    }
+
+    // Getter for dept
+    public String getDept() {
+        return dept;
+    }
+
+    // Setter for dept
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+
+    // Getter for name
+    public String getName() {
+        return name;
+    }
+
+    // Setter for name
+    public void setName(String name) {
+        this.name = name;
+    }
+    @Override
+public String toString() {
+    return "EM{" +
+           "clg='" + clg + '\'' +
+           ", dept='" + dept + '\'' +
+           ", name='" + name + '\'' +
+           '}';
+}
+
+}
+
+class MyClass{
+    String name;
+    int num;
+    
+    MyClass(String name,int num){
+        this.name = name;
+        this.num = num;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    public int getNum(){
+        return num;
+    }
+    
+    public void setNum(int num){
+        this.num = num;
+    }
+    
+    @Override
+    public String toString(){ 
+        return name + " " + num;   
+        
+    }
+}
+
+*******************************************************
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+
+		Scanner scan = new Scanner(System.in);
+
+		List<EM> al = new ArrayList<>();
+		al.add(new EM("BMW","USA",10000));
+		al.add(new EM("NISSAN","IND",20000));
+		al.add(new EM("BENZ","UK",30000));
+		al.add(new EM("BALENO","IND",40000));
+		al.add(new EM("AUDI","JAPAN",10000));
+
+		System.out.println("Enter input : ");
+		int input = scan.nextInt();
+		switch(input) {
+		case 1:
+			//Filter price greater than :
+			al.stream()
+			.filter(n->n.getPrice() > 20000)
+			.forEach(System.out::println);
+			break;
+		case 2:
+			//asc sorting:
+			al.stream()
+			.sorted(Comparator.comparingInt(EM::getPrice))
+			.forEach(System.out::println);
+			break;
+		case 3:
+			//desc sorting:
+			al.stream()
+			.sorted(Comparator.comparingInt(EM::getPrice).reversed())
+			.forEach(System.out::println);
+			break;
+		case 4:
+			//grouping by
+			al.stream()
+			.collect(Collectors.groupingBy(EM::getCountry))
+			.forEach((key,value)-> {
+				System.out.println("country: " + key);
+				value.forEach(System.out::println);
+			});
+			break;
+		case 5:
+			//part it ion ingBy by
+			al.stream()
+			.collect(Collectors.partitioningBy(n->n.getCountry().equals("USA")))
+			.forEach((key,value)-> {
+				System.out.println("country: " + key);
+				value.forEach(System.out::println);
+			});
+			break;
+		}
+
+
+
+class EM {
+
+	private String car;
+	private String country;
+	private int price;
+
+	public EM(String car, String country, int price) {
+		this.car = car;
+		this.country = country;
+		this.price = price;
+	}
+
+	// Getter for car
+	public String getCar() {
+		return car;
+	}
+
+	// Setter for car
+	public void setCar(String car) {
+		this.car = car;
+	}
+
+	// Getter for country
+	public String getCountry() {
+		return country;
+	}
+
+	// Setter for country
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	// Getter for price
+	public int getPrice() {
+		return price;
+	}
+
+	// Setter for price
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("[{\"car\": \"%s\", \"country\": \"%s\", \"price\": %d}]", car, country, price);
+	}
+}
+*********************************************************************************************
+Stream Operations You Can Practice:
+1.Filtering:
+
+	Cars with price > 20000
+
+	Cars from “USA” only
+
+	Cars not from “IND”
+
+2.Sorting:
+
+	Sort by price
+
+	Sort by brand name
+
+	Sort by origin and then price
+
+3.Mapping:
+
+	Extract all brand names
+
+	Get uppercase brand names
+
+	Map to price only
+
+4.Grouping:
+
+	Group cars by origin
+
+	Group by brand
+
+	Group by price ranges (e.g., <20000, 20000–30000, >30000)
+
+5.Distinct and Deduplication:
+
+	Remove duplicate entries (you may need to override equals() and hashCode() in EM)
+
+	Get unique brand names
+
+6.Collecting:
+
+	Convert to List, Set, or Map
+
+	Create a map with brand as key and price as value (resolve conflicts)
+
+	Count number of cars per origin
+
+7.Finding:
+
+	Find first car with price > 25000
+
+	Find any car from “JAPAN”
+
+8.Reducing / Aggregation:
+
+	Sum of all prices
+
+	Average price
+
+	Max and min prices
+	
+ANSWER:
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+
+		Scanner scan = new Scanner(System.in);
+
+		List<EM> al = new ArrayList<>();
+		al.add(new EM("BMW", "USA", 10000));
+		al.add(new EM("BMW", "USA", 10000));
+        al.add(new EM("NISSAN", "IND", 20000));
+        al.add(new EM("BENZ", "UK", 30000));
+        al.add(new EM("BENZ", "UK", 30000));
+        al.add(new EM("BALENO", "IND", 40000));
+        al.add(new EM("AUDI", "JAPAN", 10000));
+        al.add(new EM("TESLA", "USA", 50000));
+        al.add(new EM("TOYOTA", "JAPAN", 18000));
+        al.add(new EM("MAHINDRA", "IND", 22000));
+        al.add(new EM("HONDA", "JAPAN", 17000));
+        al.add(new EM("FORD", "USA", 25000));
+        al.add(new EM("HYUNDAI", "KOREA", 21000));
+        al.add(new EM("CHEVROLET", "USA", 26000));
+        al.add(new EM("RENAULT", "FRANCE", 15000));
+        al.add(new EM("SKODA", "GERMANY", 19000));
+        al.add(new EM("AUDI", "GERMANY", 23000));
+        al.add(new EM("FIAT", "ITALY", 12000));
+
+
+		System.out.println("Enter input : ");
+		int input = scan.nextInt();
+		switch(input) {
+		case 1:
+			//Filtering: Cars with price > 20000
+			al.stream()
+    			.filter(n->n.getPrice() > 20000)
+    			.forEach(System.out::println);
+    			break;
+    	case 2:
+			//Filtering: Cars from “USA” only
+			al.stream()
+    			.filter(n->n.getCountry().equals("USA"))
+    			.forEach(System.out::println);
+    			break;
+    	case 3:
+			//Filtering: Cars not from “IND”
+			al.stream()
+    			.filter(n-> !n.getCountry().equals("IND"))
+    			.forEach(System.out::println);
+    			break;
+
+			
+		}
+
+	}
+}
+
+class EM {
+
+	private String car;
+	private String country;
+	private int price;
+
+	public EM(String car, String country, int price) {
+		this.car = car;
+		this.country = country;
+		this.price = price;
+	}
+
+	// Getter for car
+	public String getCar() {
+		return car;
+	}
+
+	// Setter for car
+	public void setCar(String car) {
+		this.car = car;
+	}
+
+	// Getter for country
+	public String getCountry() {
+		return country;
+	}
+
+	// Setter for country
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	// Getter for price
+	public int getPrice() {
+		return price;
+	}
+
+	// Setter for price
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("[{\"car\": \"%s\", \"country\": \"%s\", \"price\": %d}]", car, country, price);
+	}
+}
+
+
+*************************************
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	    List<Integer> l = Arrays.asList(1,2,3,4);
+	    
+	    boolean hasduplicate = l.size() != new HashSet<>(l).size();
+	    
+	    System.out.println(hasduplicate);
+	}
+}
+*************************************
+ODD OR EVEN:
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	
+	    int n = 3;
+	    
+	   IntStream.of(n)
+	    .forEach(x-> {
+	        if(  x % 2 == 0)
+	        System.out.println("even");
+	        else
+	        System.out.println("odd");
+	    });
+	
+	}
+}
+*************************************
+PRIME NUMBER:
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	
+	int n = 5;
+	
+	IntStream.of(n)
+	    .forEach(x-> {
+	        for(int i=2;i<n;i++){
+	            if(n%i==0){
+	                System.out.print("not prime");
+	                return;
+	            }
+	        }System.out.println("prime");
+	    });
+    
+	}
+}
+**************************************
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner scan = new Scanner(System.in);
+		
+		List<Integer> al = Arrays.asList(2,7,4,6,1,3,5,-2,-5,10,9);
+		
+		System.out.print("Enter case number: ");
+		int n = scan.nextInt();
+		
+		switch(n){
+		    case 1: 
+		        //Number sorting asc
+		        List<Integer> sortedAl = al.stream()
+    		    .sorted()
+    		    .collect(Collectors.toList());
+    		    System.out.print(sortedAl);
+    		    break;
+    	    
+    	    case 2:
+    	        //Number sorting desc
+        	    List<Integer> descSorting = al.stream()
+        	        .sorted(Comparator.reverseOrder())
+        	        .collect(Collectors.toList());
+        	        System.out.print(descSorting);
+    	            break;
+    	   case 3:
+    	       //Odd or Even
+    	       List<String> oddOrEven = al.stream()
+    	            .map(a-> a % 2 == 0 ? "even " : "odd " )
+    	            .collect(Collectors.toList());
+        	        System.out.print(oddOrEven);
+    	            break;
+    	    case 4:
+    	       //getting second value:
+    	       int secondValue = al.stream()
+    	            .skip(1)
+    	            .findFirst()
+    	            .orElse(0);
+    	            System.out.print(secondValue);
+    	            break;
+    	    case 5:
+    	       //getting second highest value:
+    	       int secondHighestNum = al.stream()
+    	            .sorted(Comparator.reverseOrder())
+    	            .skip(1)
+    	            .findFirst()
+    	            .orElse(0);
+    	            System.out.print(secondHighestNum);
+    	            break;
+    	   case 6:
+    	       //multiply the list by 2
+    	       List<Integer> multiplyBy2 = al.stream()
+    	            .map(c-> c * 2)
+    	            .collect(Collectors.toList());
+    	            System.out.print(multiplyBy2);
+    	            break;
+    	   case 7:
+    	       //num Greater Than 5 
+    	       List<Integer> numGreaterThan = al.stream()
+    	            .filter(d-> d > 5)
+    	            .collect(Collectors.toList());
+    	            System.out.print(numGreaterThan);
+    	            break;
+    	   case 8:
+    	       //finding last number in a List
+    	       int lastNum = al.stream()
+    	            .skip(al.size()-1)
+    	            .findFirst()
+    	            .orElseThrow(() -> new NoSuchElementException("num not found"));
+    	            System.out.print(lastNum);
+    	            break;
+		}
+	}
+}
+**************************************
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner scan = new Scanner(System.in);
+	    System.out.print("enter case num: ");
+	    int n = scan.nextInt();
+	    
+	    List<String> al = Arrays.asList("siraj","syed","arif");
+	    
+	    switch(n){
+	        case 1: //sorting asc
+	            List<String> sortString = al.stream() 
+    		    .sorted()
+    		    .collect(Collectors.toList());
+    		    System.out.print(sortString);
+	            break;
+	       
+	       case 2: //sorting desc
+	            List<String> sortStringDesc = al.stream() 
+    		    .sorted(Comparator.reverseOrder())
+    		    .collect(Collectors.toList());
+    		    System.out.print(sortStringDesc);
+	            break;
+	            
+	       case 3: //starts with 'S'
+	            List<String> startsWithS = al.stream() 
+	            .filter(a-> a.startsWith("s"))
+	            .collect(Collectors.toList());
+    		    System.out.print(startsWithS);
+	            break;
+	            
+	       case 4: //toUpperCase
+	            List<String> toUpperCase = al.stream() 
+	            .map(b-> b.toUpperCase())
+	            .collect(Collectors.toList());
+    		    System.out.print(toUpperCase);
+	            break;
+	       
+	       case 5: //GroupingBy
+	            Map<String,List<String>> groupingBy = al.stream() 
+	            .collect(Collectors.groupingBy(c-> c.startsWith("s") ? "starts with s" : "others"));
+    		    System.out.print(groupingBy);
+	            break;
+	    }
+		
+		
+	}
+}
+**************************************
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	    
+	    int n =5;
+	    IntStream.of(n)
+	        .forEach(System.out::print);
+	    
+	    String s = "siraj";
+	    Stream.of(s)
+	        .forEach(System.out::print);
+	   
+	   List<Character> al = s.chars()
+	    .mapToObj(a-> (char)a)
+	    .sorted()
+	    .collect(Collectors.toList());
+	    System.out.print(al);
+	                    
+	}
+}
+**************************************
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner scan =new Scanner(System.in);
+	    System.out.print("Enter case number: ");
+	    int n = scan.nextInt();
+	    switch(n){
+	        case 1:
+	        	List<String> al = Arrays.asList("aa","bb","c","aa");
+            	Map<String,Long> map = al.stream()
+            	    .collect(Collectors.groupingBy(
+            	        Function.identity(),
+            	        Collectors.counting()));
+            	        System.out.print(map);
+            break;
+            
+            case 2:
+                 String s = "aabbcca";
+            	 Map<Character,Long> map1 = s.chars()
+            	    .mapToObj(x-> (char) x)
+            	    .collect(Collectors.groupingBy(
+            	        Function.identity(),
+            	        Collectors.counting()));
+            	        System.out.print(map1);
+            break;
+            
+            case 3:
+                String d = "Java is Program Java is again a Program";
+                Map<String,Long> map2 = Stream.of(d)
+                    .map(a->a.split(" "))
+                    .flatMap(Arrays::stream)
+                    .collect(Collectors.groupingBy(
+                        Function.identity(),
+                        Collectors.counting()));
+                        System.out.print(map2);
+
+            break;
+	        
+	        case 4:
+	            String s1 = "aabbccde";
+                Map<String,Long> map3 =  Stream.of(s1)
+                    .map(w->w.split(""))
+                    .flatMap(Arrays::stream)
+                    .collect(Collectors.groupingBy(
+                        Function.identity(),
+                        Collectors.counting()));
+                        System.out.print(map3);
+            break;
+	    }
+	}
+}
+
+**************************************
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner scan = new Scanner(System.in);
+	    System.out.print("Enter Case number: ");
+	    int n = scan.nextInt();
+	    switch(n){
+	        case 1: //Rev a String :
+	            String s = "Java is a Program";
+	            String rev = Stream.of(s.split(" "))
+    	        .sorted(Comparator.reverseOrder())
+    	        .collect(Collectors.joining(" "));
+	            System.out.print("rev: " + rev);
+	            break;
+	            
+	       case 2: //Rev a String Words :
+	            String words = "Java is a Program";
+	            String revWord = Stream.of(words.split(" "))
+	            .collect(Collectors.collectingAndThen(
+	                Collectors.toList(),
+	                lastWord ->{
+	                    Collections.reverse(lastWord);
+	                    return lastWord.stream();
+	                }))
+	                 .collect(Collectors.joining(" "));
+                    System.out.print("revWord: " + revWord);
+	            break;
+	                
+	   
+	    }
+	   
+	   
+	}
+}
+**************************************
+	    String s = "Java";
+	    String rev = "";
+	    
+	    Stack<String> st = Stream.of(s.split(""))
+	        .collect(Collectors.toCollection(Stack::new));
+	        while(!st.isEmpty()){
+	            rev = rev + st.pop() + "";
+	        }
+	        System.out.print(rev);
+**************************************
+import java.util.*;
+import java.util.stream.*;
+import java.util.function.Function;
+
+public class Main
+{
+	public static void main(String[] args) {
+		String s = "aabbBcc";
+		
+// 		Stack<String> st = Stream.of(s.split(" "))
+// 		    .collect(Collectors.toCollection(Stack::new));
+// 		    while(!st.isEmpty()){
+// 		       // System.out.print(st.pop() +  " ");
+// 		    }
+		    
+		    Map<String,Long> map = Stream.of(s.split(""))
+		        .collect(Collectors.groupingBy(
+		            Function.identity(),
+		            Collectors.counting()));
+		           // System.out.print(map);
+		            
+		           //Optional<Map.Entry<String,Long>> res =
+		          String r =  map.entrySet().stream()
+		                .sorted(Map.Entry.comparingByValue())
+		                .skip(1)
+		                .findFirst()
+		                .orElseThrow(()-> new RuntimeException ("not found"));
+		                System.out.print(r);
+
+		                
+	}
+}
+
+	int n = 123;
+	
+	String.valueOf(n).chars()
+	    .mapToObj(i-> (char) i)
+	    .sorted(Comparator.reverseOrder())
+	    .forEach(System.out::print);
+	
+**************************************
+	String s = "hello";
+	    
+	    Map<String,Long> map = Stream.of(s.split(""))
+	        .collect(Collectors.groupingBy(
+	            e->e,
+	            Collectors.counting()));
+	           // System.out.print(map);
+	           
+	           Optional<Map.Entry<String,Long>> map1 = map.entrySet().stream()
+	                .sorted(Map.Entry.<String,Long>comparingByValue().reversed())
+	                .skip(1)
+	                .findFirst();
+	                
+	                System.out.print(map1);
+					
+MAX:
+		String s = "hello";
+	    
+	    Map<String,Long> map = Stream.of(s.split(""))
+	        .collect(Collectors.groupingBy(
+	            e->e,
+	            Collectors.counting()));
+	           // System.out.print(map);
+	           
+	           Optional<Map.Entry<String,Long>> map1 = map.entrySet().stream()
+	                .max(Map.Entry.comparingByValue());
+	                System.out.print(map1);
+
+**************************************
+
+	
+**************************************
+DOCKER:
+	
+Deployment:
+	1.mvn clean package
+	2.create Docker File and add the Target jar path
+	3.run command : docker build -t appName 
+		example: (docker build -t maven_example-0.0.1 .) docker build -t maven_test .
+	4.test locally:
+		docker run -p 8080:8080 appName:latest
+		example : docker run -p 8080:8080 maven_example-0.0.1:latest
+docker run -p 8080:8080 maven_example-0.0.1:latest
+
+mvn clean package
+docker-compose down -v  # Destroys volumes to avoid old data/config
+docker-compose up --build
+ database-platform: org.hibernate.dialect.MySQL8Dialect
+docker exec -it mysql_db mysql -uroot -padmin
+
+Databae build:
+docker-compose down - to make down
+docker builder prune - cleaning
+docker-compose up --build ( to build)
+
+docker stop mysql_test
+docker rm mysql_test
+ 
+docker images to check
+docker rmi 6a10839d0ee6 158967740bea  for delete
+
+docker ps - container check 
+
+
+
+****************************************************
+lifecycle of springboot
+	1.app start - invokes IOC container [scan - @componentscan,@configuration]
+	2.construct the bean [ if it singleton - eager initalisation is eligible and while stating the app itself bean will be created]
+	3.Depedency injection - using autowired	[ if it  lazy initalisation is not eligible and while stating the app itself bean will not be created only when needed it will be created using autowired and injected]
+	4.post construct - if any pre task need to be done 
+	5.predestroy - closing the ioc container predestroy will be called so if any db connection before destroying the bean it will close
+
+
+MAVEN vs Gradle:
+Maven :
+	1.has poom.xml file
+Gradle :
+	1.dont have pom.xml file it have build.gradle file 
+	
+	
+SPRING BOOT: <<<<< httpClinet <-> security filter chain <-> dispacher servlet <-> interceptor <-> controller <-> service <-> repository <-> entity <-> db  >>>>>
+
+SECURITY:
+	dependency : spring-starter-security
+	
+	1.authentication - password/pin
+	2.authorization  - user roles
+	
+	security filter chain -> dispacher servlet -> controller -> service-> repository-> entity-> db
+	
+	to get session - httpServletRequest interface : getSession();
+	to change the default pwd: spring.security.user.name
+							   spring.security.user.password
+security filter chain:							   
+	 CSRF: cross site req forgery : used to secure the session ID
+	 to disable 				  : http class disble method
+	 to enable same site strict   : server.servlet.session.cookie.same-site = strict 
+	 to enable session change     : sessionMnangement(sessionCreatePolicy - stateless)
+ 
+To add Custom SECURITY:
+	1.new config file 
+	2.@Configuration
+	3.@EnableWebSecurity
+	
+http - filter - dispacherServlet - interceptor - controller
+	
+Filter	
+	http req and response <-> servelet container[Tomcat] <->before reach to the servelet
+
+Servelet 
+	- /* dispatcher servelet handle api req
+	- can create multiple servelet for rest/soap/custom
+	
+Interceptor
+	after dispatcher servelet before controller
+	
+
+@Component
+public class AuthInterceptor implements HandlerInterceptor {
+
+    @Override
+    public boolean preHandle(HttpServletRequest request,
+                             HttpServletResponse response,
+                             Object handler) throws Exception {
+
+        System.out.println("Inside preHandle");
+
+        String token = request.getHeader("token");
+
+        if (token == null || token.isEmpty()) {
+
+            response.setContentType("text/plain");
+            response.getWriter().write("Token Missing");
+
+            return false; // stop request
+        }
+
+        return true; // continue to controller
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request,
+                           HttpServletResponse response,
+                           Object handler,
+                           org.springframework.web.servlet.ModelAndView modelAndView)
+            throws Exception {
+
+        System.out.println("Inside postHandle");
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request,
+                                HttpServletResponse response,
+                                Object handler,
+                                Exception ex)
+            throws Exception {
+
+        System.out.println("Inside afterCompletion");
+    }
+}
+
+@Configuration
+public class MyConfig implements WebMvcConfigurer {
+
+    @Autowired
+    private AuthInterceptor authInterceptor;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+
+        registry.addInterceptor(authInterceptor)
+                .addPathPatterns("/api/**")
+				.excludePathPatterns("api/updtae","api/delete");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Interceptor Request Received
+	↓
+	preHandle() → if returns true:
+	↓
+	Controller executes
+	↓
+	postHandle()
+	↓
+	View rendering / response creation
+	↓
+	afterCompletion()
+	↓
+	Response sent to client
+
+
+	* convetion over configurations
+	* embedded server tomcat 
+	* APIs can build easily 
+	
+IOC vs DI:
+	* IOC is a principal and DI is a pattern
+	* in JVM (heap memory) IOC container will be created and inside obj are stored and DI will be done
+	
+SPRING IOC:
+	* it will Create Object using the IOC - Inversion of Control that means IOC Container
+	* all created Objects/Bean will be inside the IOC Container withut IOC all object are stored in JVM 
+	
+	STEPS:
+	* we need to create a config File for managing the Bean/Object
+	* we can say as Application Context 
+	* we need to add Dependcy of Spring-Context to create a Application Context
+	* after that we need to create a file under resources = config.xml and need to add the beans and its properties 
+	* ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+	
+Dependecy Injection in SPRING:
+	* Setter - by using getter/setter we can achieve and by Name or Ref Type we can call the Object. we can inclued in bean tag as property or use Autowired as well in the xml properities to automate
+				if more than one Object found with the same Class Type we can use the Qualifer > Primary  to call it 
+	* Consturtor - by using constructor we can create obj.. default consturtor is mandatory.. in xml we need to pass Consturtor-arg or autowired  
+	* Field - if mulitple class are there for a class we need to create an obj then we can use this by using @Autowired 
+	
+SPRING BOOT:
+	* In Main class need to add the ApplicationContext context = run.... for getting the Objects/bean context.getBean()
+	* All beans are manged by SpringBoot
+	
+	@Annotations
+		 @Component 		 - it will create the Obj in the IOC Container and it will have getBean methods (obj are Managed by springboot)
+		
+		 @Autowired 		 - it will inject the beans/Obj to the classes according setter method,field method,constructor method
+
+		 @Scope("singleton") - whenever getBean is called Single Obj are Created default is "Singleton"
+
+		 @Scope("prototype") - whenever getBean is called two or more diff Obj are Created 
+		 
+		 @Bean 				 - it will create the Obj when the ApplicationContext loading itself
+
+		 @Primary			 - if more than one class extends a class then primary we can give for obj creation
+
+		 @Qualifer			 - if more than one primary found the qualifier will manage the obj
+		 
+		 @PathVariable 		 - in GetMapping 
+		 
+		 @RequestBody 		 - in PostMapping
+		 
+		 @FixedRate 		 - it Dont wait for the Job to complete it will trigger at the time 
+		 
+		 @FixedDelay		 - it will wait for the Job to complete and then run next
+		 
+		 @Entity 			 - annotate for the entity class
+		 
+		 @Table(name = user) - used to mention the DB table name 
+		 
+		 @Id 				 - used to make primary Key
+		 
+		 @RequestBody 		 - Client to Server in PostMapping - passing the Json structure in the rest it will map automatically 
+		 
+		 @ResponseBody		 - Server to Clinet in GetMapping in Controller - not in rest controller [ it will look for any page is there and render that if we use response body then it will look for parameter ]
+		 
+		 @GeneratedValue()   - 
+		 
+		 @ResponseEntity 	 - return ResponseEntity.status(HttpStatus.OK);
+		 
+SpringBoot Application starts	
+	1.start App (main method)
+	2.prepare env file applications/profiles/properties
+	3.create appliction Context(IOC Container)
+	4.Component Scan - sacn for @Component, @Service, @Repository @Controller - register them as a Bean
+	5.@EnableAutoConfiguration - it loads the config classes on classpath
+	6.@Autowired - Initalise Beans in setter , constructor and field
+	7.start tomcat Server
+	8.executes Runners if any CommonLineRunner and ApplicationRunner Beans
+	9.Publish events - applictionStaredEvent,applictionReadyEvent and @EventListener(eg: send a welcome email) method if any 
+	10.application is started
+		 
+
+	
+Exceptions :
+	try/catch for Build In Exceptions
+	
+	For Custom Exceptions: create a GlobalExceptionHandle class that extend the RunTime Exception class
+	@ControllerAdvice - in class name we need to use 
+	@ExceptionHandler(Exception.class) - inside clas we can create custom exception
+	
+	
+	
+API Responses:
+200 - ok [success in GET]
+201 - created
+202 - content accespted
+203 - returned from Proxy 
+204 - no content 
+
+Clinet Side:
+400 - Bad request [type mismatch like string req but int found]
+401 - unAuthorised
+403 - Forbitten - no authentiation/autherisation
+404 - not Found
+409 - conflicts
+
+Server Side:
+500 - internal server error
+501 - not implementd
+502 - bad Gateway 
+503 - service not available 
+504 - Gateway Timeout
+599 - netwoek issue
+
+******************************************************************
+1xx – Informational Responses
+100 – Continue
+101 – Switching Protocols
+102 – Processing
+
+2xx – Success Responses
+200 – OK (request successful)
+201 – Created (new resource created)
+202 – Accepted (request accepted for processing)
+203 – Non-Authoritative Information (returned from proxy/cache)
+204 – No Content (success but no response body)
+
+3xx – Redirection Responses
+300 – Multiple Choices
+301 – Moved Permanently
+302 – Found / Temporary Redirect
+304 – Not Modified
+307 – Temporary Redirect
+308 – Permanent Redirect
+
+4xx – Client Side Errors
+400 – Bad Request (invalid data/type mismatch)
+401 – Unauthorized (authentication required)
+403 – Forbidden (access denied)
+404 – Not Found
+405 – Method Not Allowed
+408 – Request Timeout
+409 – Conflict
+
+5xx – Server Side Errors
+500 – Internal Server Error
+501 – Not Implemented
+502 – Bad Gateway
+503 – Service Unavailable
+504 – Gateway Timeout
+599 – Network Connect Timeout Error (non-standard)
+******************************************************************
+     @GetMapping("{id}")
+     public String getByid(@PathVariable("id") Long id){
+      return "id is = "  + id;
+     }
+
+     @GetMapping("/id") //id?id=
+     public String reqParam(@RequestParam() Long id){ 
+      return "id in reqParam " + id;
+     }
+     
+     @PostMapping("/")
+     public String createMethod(@RequestBody ClassName obj){
+      return "id created is = " + obj.getId();
+     }
+
+	@ControllerAdvice
+	public class GlobalException {
+	   @ExceptionHandler(Exception.class)
+	   public ResponseEntity<String> exceptionMethod(Exception e){
+	   // return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST, "not Found");
+		return new ResponseEntity<>("not Found siraj", HttpStatus.BAD_REQUEST);
+	   }
+	}
+******************************************************************
+GET /users?id=101
+	@GetMapping("/users")
+	public String getUser(@RequestParam Long id) {
+		return "User Id: " + id;
+	}
+
+GET /search?name=John&age=25
+	@GetMapping("/search")
+	public String search(
+			@RequestParam String name,
+			@RequestParam int age) {
+
+		return name + " " + age;
+	}
+	
+@PostMapping("/users")
+public String createUser(@RequestBody User user) {
+    return user.getName();
+}
+******************************************************************
+MICROSERVICES:
+
+CRUD -> APIGATEWAY -> EUREKA Server -> Load Balancing -> DB1,DB2
+
+1.eureka server 
+	dependcy - springBoot cloud netfilx eureka server
+	@EnableEurekaServer - to start the eureka server to see instance
+	
+2.Instance One
+	dependcy - eureka discovery Client
+	@EnableDiscoveryClient - Client 1 instane
+	
+3.Instance Two
+	dependcy - eureka discovery Client
+	@EnableDiscoveryClient - Client 2 instane
+	
+4.APIGATEWAY
+	dependcy - eureka discovery Client
+	dependcy - reactive Gateway
+	@EnableDiscoveryClient - Common Client port
+	
+	eureka.client server in appl file
+******************************************************************
+JAVA INTERVIEW QUES:
+
+public class Main
+{
+	public static void main(String[] args) {
+    
+    //Primitive Data Types
+    byte	 by 	= 10; 					 //-128 to 127
+    int 	 n 		= 10; 					 // -2,147,483,648 to 2,147,483,647
+    String 	 name	= "Siraj"; 				 // stores words
+    char 	 c 		= 's'; 					 // stores a single character
+    Float 	 f 		= 19.1234567f; 			 // stores up to 7 decimal places
+    Double   d 		= 19.123456789876543210; // stores up to 15-16 decimal places
+    boolean  b 		= true; 				 // true or false
+    
+    System.out.println("int " + n);
+    System.out.println("String " + name);
+    System.out.println("Char " + c);
+    System.out.println("float "+ f);
+    System.out.println("double "+d);
+    System.out.println("boolean "+b);
+	}
+	
+		String s = "sirajdeen p";
+	    String d = "25";
+	    int n = 25;
+	    
+	    System.out.println(s.length());
+	    System.out.println(s.toUpperCase());
+	    System.out.println(s.toLowerCase());
+	    System.out.println(s.indexOf("e"));
+	     System.out.println(s.concat(d));
+	     System.out.println(n + d);
+	     System.out.println(n + Integer.parseInt(d));
+	     int randomNum = (int)(Math.random() * 1010101);  // 0 to 100
+	     System.out.println(randomNum);
+		 
+		String s = "123";
+		int num = Integer.parseInt(s);
+		
+		int num = 123;
+		String s = Integer.toString(num);
+}
+
+Method OverLoading:
+
+class Calc{
+    public void add(int a,int b){
+        System.out.println(a+b);
+    }
+    
+     public void add(int a,int b,int c){
+        System.out.println(a+b+c);
+    }
+}
+
+public class Main{
+    public static void main(String args[]){
+        
+        Calc obj = new Calc();
+        obj.add(10,10);
+        obj.add(10,10,10);
+        
+Method OverRiding:
+class Shape{
+    public void draw(){
+        System.out.println("Shape is drawn");
+    }
+}
+
+class Rectangle extends Shape{
+  // @Override
+    public void draw(){
+        System.out.println("Rectangle is drawn");
+    }
+}
+
+
+public class Main{
+    public static void main(String args[]){
+    
+    Shape s = new Shape();
+    s.draw();
+    
+    Shape r = new Rectangle();
+    r.draw();
+
+************************************************************************************************
+Method OverLoading or Compile Time Polymorpishm:
+	* method OverLoading has same class name with same method name with diff params
+Method OverRiding or Run Time Polymorpishm:
+	* method OverRiding has same method names with diff class names need to extends the Class and need to Override it
+***************************************************************************************************
+daemon thread.
+once the main (user) thread ends, the JVM exits and kills the daemon thread.
+***************************************************************************************************
+Single Inheritance :
+	A class extends B class
+		class A {
+
+		public void  a() {
+			System.out.println("A");
+		}
+
+	}
+
+	class B extends A{
+		public void b(){
+			System.out.println("B");
+		}
+	}
+
+
+	public class Main {
+		public static void main(String args[]) {
+
+			B obj1 = new B();
+			obj1.b();
+			obj1.a();
+			
+
+		}
+	}
+MULTILEVEL INHERITANCE 
+	class A {
+
+		public void  a() {
+			System.out.println("A");
+		}
+
+	}
+
+	class B extends A{
+		public void b(){
+			System.out.println("B");
+		}
+	}
+
+	class C extends B{
+		public void c(){
+			System.out.println("C");
+		}
+	}
+
+	public class Main {
+		public static void main(String args[]) {
+
+			C obj = new C();
+			obj.c();
+			obj.b();
+			obj.a();
+			
+
+		}
+	}
+
+MULTIPLE INHERITANCE 
+	class A {
+		public void  a() {
+			System.out.println("A");
+		}
+
+	}
+
+	class B extends A{
+		public void b(){
+			System.out.println("B");
+		}
+	}
+
+	class C extends A{
+		public void c(){
+			System.out.println("C");
+		}
+	}
+
+	class D extends A{
+		public void d(){
+			System.out.println("D");
+		}
+	}
+
+	public class Main {
+		public static void main(String args[]) {
+
+			D obj = new D();
+			obj.d();
+			obj.a();
+			
+			C obj1 = new C();
+			obj1.c();
+			obj1.a();
+			
+
+		}
+	}
+
+******************************************************************
+INTERNAL WORKING OF HASHMAP:
+
+	hashmap - key, Value
+	time comp - O(1)
+	linkedlist changed to Balanced Tree after Java8
+
+	bucket - Arrays of nodes 0 to 15 [Hash, key, value, next]
+	initial capacity - 16
+	load factor - 0.75 threshold if reaches 12 it will double the size
+	hashing steps:
+		1.Keys to HashCode[hashFunction]
+		2.HashCode to index [module by capacity - 1]
+
+	HashCollison: whenver the key produce the same Key then collison will occurs so the next will used to store the key,Value	
+
+	STRING LITERAL:
+		stack - store variable
+		heap  - stores objects
+		
+		.equals - compares content
+		== 		- compare reference value
+
+
+MULTITHREADING
+
+	New → Runnable → Running → Waiting/Blocked → Terminated
+
+	Process - whenever a program is executed process is created
+	
+	Thread  - one process has multiple thread and thread is also a small process 
+	
+	multitasking = task1,2 cannot share the resources
+
+	multithreading - it will share the resourecs heap,datasegmenet,code segmentt,stack
+	
+	by  using Thread calss and by Runnable Interface (run abstract method)
+	
+	demonThread - if the JVM finds the main thread is Stopped then the demonThread excution will be Stopped
+	
+	synchronized block - only the block will be locked 
+	
+	synchronized method - whole method will be locked 
+	
+	runnable - dont have return type
+	
+	callable - have return type
+	
+Garbage Collectors	
+
+	heap is divided into two young gen and old so crete new obj are been stored in the young first and 
+	it has lost long and have scope then it will be moved to the old gen Gc will check the young first 
+	and if it is going to fill then it will celar it afte that it wilcheck the old where youn is fatster 
+	comaring to the older correct this grammer mistakes 
+	
+	Eden - young - older 
+	mark and sweep algo
+	
+
+SingleTon Class
+
+	One object is create ex: DB connectiona
+
+	Eager Intialisation - in early we will crete the obj 
+	
+	Lazy Intialisation  - inside method the obj will be created 
+	
+	Synchronized method	- only one thread can call otherwise lock will be created 
+	
+	Double Locking 		- two check will be created 
+	
+Executor 
+	* Executor is an Interface which implements Exceutor Service , ForkjoinPool, ThreadPoolExcutor, ScheduledExcutorService, ScheduledThreadPoolExcutor
+	* ThreadPoolExcutor will have constructor of 
+		ThreadPoolExecutor(
+			int corePoolSize,
+			int maximumPoolSize,
+			long keepAliveTime,
+			TimeUnit unit,
+			BlockingQueue<Runnable> workQueue
+		)
+	* ThreadPoolExcutor will have minPoolsixe, maxPoolSize, Queue.. if the min is 3 and max is 5 then the t1,t2,t3 are assigned and the t4,t5 are waiting in the queue
+	* if t6,t7 is came then the t4,t5 is assigened and running and if t8 is came then it will be rejected
+	* .submit()->{} and .shutdown()
+	
+Future	
+	* we are not able to know the status of the Executor submit so by Future we can see the status 
+	* return type of submit is Future
+	* Interface we can know the result of async task
+	* cancel(), isCancelled(), isDone(), get(), get(long timeout,TimeUnit unit)
+	
+Completable Future
+	* intro in java 8 - adavnce of Future
+	* provides chaining
+	* Future is interface -> child is Completable Future
+	* if we not proving and Excutor Pool it will use the default ForkjoinPool
+	* thenApply() - used after the supplyAsync() same thread used 
+	* thenApplyAsync() - new thread used out of executor ForkjoinPool
+	* thenCompose() - need order use this same thread used 
+	* thenComposeAsync() - need order use this executor ForkjoinPool
+	* thenCombine / thenCombineAsync - used to combine two thread
+	
+Factory exectior service
+	* ExecutorService es = Executors.newfixedPool(5);
+	
+Virtual thread 
+	* jvm can create multiple VT and only when needed it will link to OS thread - java 19
+	* normal thread is dirctly linked to os 
+	
+
+
+*************************************************************************
+//custom thread pool executor
+import java.util.concurrent.*;
+
+public class ExecutorTest {
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+
+        BlockingQueue<Runnable> wQ = new LinkedBlockingQueue<>();
+
+        ThreadPoolExecutor th = new ThreadPoolExecutor(
+                1,
+                1,
+                10,
+                TimeUnit.SECONDS,
+                wQ,
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.AbortPolicy()
+        );
+
+    //Runnable - dose nt return anything
+    Future<?> fut = th.submit( () -> {System.out.println("hi");} );
+
+    //Callable - return
+    Future<Integer> fut1 = th.submit( () -> {
+        System.out.println("hi");
+        return 45 ;
+    } );
+    System.out.println(fut1.get());
+
+    //Completable Future
+        CompletableFuture cf = CompletableFuture.supplyAsync(()->{
+                return "CompletableFuture"; }, th);
+        System.out.println(cf.get());
+    }
+}
+
+*************************************************************************
+	
+Predicate<T> 		: filter() 
+Function<T,R>  		: map()
+Supplier<T>	 		: collect()
+BiFunction<T,U,R> 	: collect()
+BimaryOpertaor<T> 	: reduce()
+consumer<T>  		: forEach() 
+
+Stream Method	Functional Interface	Example
+filter()		Predicate<T>			s -> s.length() > 3
+map()			Function<T, R>			s -> s.toUpperCase()
+forEach()		Consumer<T>				System.out::println
+reduce()		BinaryOperator<T>		(a, b) -> a + b
+collect()		Supplier, BiConsumer	Collectors.toList()
+generate()		Supplier<T>				() -> "Hi"
+
+
+
+************************************************************************
+INNER JOIN nd JOIN
+ Returns only matching rows
+ 
+OUTER JOIN
+
+👉 Returns matching + non-matching rows
+
+There are 3 types:
+
+a) LEFT OUTER JOIN (or LEFT JOIN)
+
+👉 All rows from left table, plus matches from right
+
+RIGHT OUTER JOIN (or RIGHT JOIN)
+
+👉 All rows from right table, plus matches from left
+
+FULL OUTER JOIN
+
+👉 All rows from both tables
+
+
+SELECT columns
+FROM table1
+JOIN table2 ON table1.common_column = table2.common_column;
+
+select count(*) from table
+
+select count(*) from employee
+
+//find Duplicate
+select employeeName, count(*) from employee
+group by employeeName having count(*) > 1  
+
+//find max and second largest
+select * from employee order by employeeID desc limit 1 offset 0
+
+//Join
+select * from employee 
+join employees on employee.company = employees.company
+
+//union vs unionAll 
+select id,employeeName from employee
+union all
+select id,employee_name from  employees
+************************************************************************
+	@OneToOne
+    private Address address;
+	
+	@OneToMany(mappedBy = "author")
+    private List<Book> books;
+	
+	@ManyToOne
+    private Author author;
+	
+	@ManyToMany
+    @JoinTable(
+      name = "book_category",
+      joinColumns = @JoinColumn(name = "book_id"),
+      inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories;
+	
+	@ControllerAdvice
+public class GlobalException {
+   @ExceptionHandler(Exception.class)
+   public ResponseEntity<String> exceptionMethod(Exception e){
+   // return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>("not Found siraj", HttpStatus.BAD_REQUEST);
+   }
+}
+
+************************************************************************
+//Java
+Tell me about yourself.
+Which Java version are you using? Why?
+Difference between JDK, JRE, and JVM
+Why is Java platform-independent?
+Why is Java not 100% object-oriented?
+Why is String immutable in Java?
+Difference between primitive and wrapper classes
+Autoboxing and unboxing
+Difference between == and .equals()
+hashCode() vs equals()
+Key features of Java 8
+Key features of Java 17
+Java 8 vs Java 17 – What has improved?
+What is a functional interface?
+Examples: Predicate, Consumer, Supplier, Function, BiFunction, Comparator with examples
+What is a lambda expression?
+What are method references?
+Use of Optional class
+What is an object in Java?
+Constructors and types
+What is inheritance? Types?
+What is encapsulation? How to achieve it?
+What is abstraction? Abstract class vs Interface
+Interface: Features, default & static methods
+What is polymorphism? Compile-time vs Runtime
+Method overloading vs overriding
+Access modifiers
+Use of final, static, this, and super
+What is a sealed class? (Java 17)
+List vs Set vs Map
+HashMap vs TreeMap vs LinkedHashMap
+HashSet vs TreeSet
+ArrayList vs LinkedList
+How HashMap works internally?
+Fail-fast vs fail-safe iterators
+Comparable vs Comparator
+What is Stream API?
+Intermediate vs Terminal operations
+map(), filter(), collect(), flatMap(), reduce(), sorted()
+Parallel streams frkJoinPool:commonPool
+Performance benefits or caveats
+Thread lifecycle
+Thread class vs Runnable interface
+ExecutorService and thread pools
+Callable vs Runnable
+Daemon vs User threads
+Thread synchronization
+Locks in Java: ReentrantLock, synchronized
+Deadlock and how to avoid it
+What is volatile keyword?
+wait(), notify(), notifyAll()
+CompletableFuture – Usage and advantages
+Future vs CompletableFuture
+Checked vs Unchecked exceptions
+Custom exceptions
+Try-with-resources (Java 7+)
+Difference between throw and throws
+finally vs final vs finalize
+Reading and writing files using File, BufferedReader, Scanner, Files
+Serialization & Deserialization
+Transient keyword
+Heap vs Stack memory
+How Garbage Collection works?
+Minor GC vs Major GC
+What are memory leaks in Java?
+Strong vs Weak references
+Explain SOLID principles with Java examples
+Common Design Patterns: Singleton, Factory, Builder, Strategy, Observer, etc.
+When to use which pattern?
+Reflection API
+Annotations: Built-in and custom
+Java Modules (introduced in Java 9)
+Records (Java 14+)
+Var keyword (Java 10)
+Generics
+
+Basic Prg:
+Fibonacci
+prime num
+palindrome or not
+* triangle pattern
+sorting
+remoiving duplicate
+swap without temp variable
+matrix multiple
+ 
+ 
+//Springboot
+What is Spring Boot?
+Difference between Spring and Spring Boot
+Spring Boot Version you used and its features
+What are the advantages of using Spring Boot?
+How does Spring Boot reduce boilerplate configuration?
+@SpringBootApplication – What it does?
+@Component, @Service, @Repository, @Controller, @RestController
+@Autowired, @Qualifier, @Primary
+@Configuration, @Bean, @Value, @PropertySource
+@EnableAutoConfiguration, @ComponentScan
+Spring Security:
+@EnableWebSecurity, @PreAuthorize, @Secured, @RolesAllowed
+@RequestMapping, @GetMapping, @PostMapping, @PutMapping, @DeleteMapping
+@RequestBody, @RequestParam, @PathVariable
+@ResponseBody, ResponseEntity<>, @ExceptionHandler, @ControllerAdvice
+@Entity, @Table, @Id, @GeneratedValue, @Column, @OneToMany, @ManyToOne, @JoinColumn
+What is IoC (Inversion of Control) and DI (Dependency Injection)?
+Layers in Spring Boot: Controller, Service, Repository
+What is a Bean? How is it created and managed? @postConstructor @PreDestroy
+What is Spring Data JPA? What is Hibernate?
+Difference between Hibernate and JPA
+Difference between JPA and JDBC
+How to configure a datasource in Spring Boot?
+How to use CrudRepository, JpaRepository, PagingAndSortingRepository?
+Custom query methods using @Query
+Fetch type (LAZY vs EAGER) in @OneToMany and @ManyToOne
+Cascading operations in relationships
+How to create a REST API in Spring Boot?
+Difference between @Controller and @RestController
+Use of ResponseEntity<> vs @ResponseBody 
+Exception handling using @ControllerAdvice
+HTTP status codes (200, 400, 500)
+@Valid, @NotNull, @NotBlank, @Size, @Email, etc.
+How to validate request body?
+What is Spring Boot Starter?
+What is Spring Boot Auto-configuration?
+How to create custom starter?
+How to externalize configuration with application.properties or application.yml
+How to secure endpoints with Spring Security?
+Basic Authentication vs JWT
+How to allow public endpoints and secure others?
+How do you handle exceptions globally?
+How do you write unit tests for controller/service layers?
+What is Actuator in Spring Boot?
+What is DevTools in Spring Boot
+What is Spring Boot CLI?
+Profiles: @Profile, application-dev.properties, etc:::: activate Profile in properities->(spring.profiles.active=dev)
+How do you implement pagination and sorting in REST APIs? ::: page,size,sort GET /users?page=0&size=10&sortBy=name
+How do you consume external REST APIs using RestTemplate or WebClient? by using URL or by webclient
+What is CORS and how do you handle it in Spring Boot? if diff port tries to hit the DB it will be Blcoked 
+-------------------------------------------------------------------------------
+1. @ControllerAdvice
+
+Think of @ControllerAdvice as a global error handler for all controllers.
+Normally, if a controller throws an exception, Spring returns a generic error page or JSON.
+@ControllerAdvice lets you catch exceptions across all controllers in one
+centralized place, so you don’t have to write try-catch blocks in every controller.
+-------------------------------------------------------------------------------
+@ExceptionHandler
+
+Inside a @ControllerAdvice class (or inside a single controller), @ExceptionHandler tells Spring:
+
+“When this specific exception occurs, run this method to handle it.”
+
+You can catch specific exceptions, like your UserNotFoundException.
+You can customize the HTTP status, message, and response body.
+-------------------------------------------------------------------------------
+Annotation	Purpose
+@NotNull	must not be null
+@NotBlank	must not be empty/space
+@NotEmpty	must not be empty
+@Size		length validation
+@Min/@Max	numeric range
+@Email		email format
+@Pattern	regex validation
+-------------------------------------------------------------------------------
+@SpringBootApplication triggers everything
+@SpringBootApplication
+
+This internally means:
+
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan
+-------------------------------------------------------------------------------
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+This automatically includes:
+
+Spring MVC
+REST support
+Embedded Tomcat
+Jackson (JSON)
+Validation
+Logging (Logback)
+-------------------------------------------------------------------------------
+SWAGGER API Doc
+@Tag(name = "User API")
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @Operation(summary = "Get user by ID")
+    @GetMapping("/{id}")
+    public User getUser(@Parameter(description = "User ID") @PathVariable Long id) {
+        return new User(id, "John");
+    }
+}
+-------------------------------------------------------------------------------
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        http
+            .csrf(csrf -> csrf.disable()) // for REST APIs (optional)
+            .authorizeHttpRequests(auth -> auth
+
+                // ✅ Public endpoints
+                .requestMatchers("/api/public/**").permitAll()
+                .requestMatchers("/auth/**").permitAll()
+
+                // 🔒 Role-based secure endpoints
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+
+                // 🔒 Everything else requires login
+                .anyRequest().authenticated()
+            )
+
+            // Choose one auth type:
+            .httpBasic(Customizer.withDefaults());  // or JWT / formLogin
+
+        return http.build();
+    }
+}
+-------------------------------------------------------------------------------
+ 
+//Microservices
+What are microservices?
+What is the difference between monolithic and microservices architecture?
+What are the advantages and challenges of using microservices?
+What is the role of the API Gateway in microservices?
+How do you design a microservice?
+How do microservices communicate with each other?
+What is the difference between synchronous and asynchronous communication in microservices?
+What protocols can be used in microservices communication (e.g., REST, gRPC, messaging)?
+What is service discovery and how is it implemented?
+What is load balancing in microservices?
+Can microservices share a database?
+How do you manage transactions across multiple microservices?
+What is the Saga Pattern and how does it work?
+What is eventual consistency?
+How do you handle failure in a microservice architecture?
+What is a circuit breaker? Explain with an example.
+What is the retry pattern in microservices?
+What is the fallback mechanism?
+How do you deploy microservices?
+What is containerization and how does Docker help in microservices?
+How does Kubernetes help in deploying and managing microservices?
+What is CI/CD and how is it used with microservices?
+How do you monitor microservices?
+How do you secure microservices communication?
+What are some best practices for designing microservices?
+************************************************************************
+Difference between JDK, JRE, and JVM
+	JDK - Java development Kit    	 - it is a runTime engine where inside it have JRE AND JVM (have compiler / debugger )
+	JRE - Java Run Time Environment	 - it have core libarary/Jars nd supporting files which have to run
+	JVM - Java virtual machine		 - Jvm will converts byte code into machine code and execute program.JVM will handles the memory/garbage collcetions
+	
+Why is Java platform-independent?
+	Because java dosent depend on any hardware or software OS - JVM only needed to run JVM used to run on mac / linux / windows 
+	
+Why is Java not 100% object-oriented?
+	Beacuse it supports Primitive DataTypes int,float,byte so it is not 100% object-oriented
+	
+Why is String immutable in Java?
+	Once String Object is created it value cannot be changed.. Only ref Chnaged eg file path/security 
+
+Difference between primitive and wrapper classes?
+	primitive - int,float,byte
+	wrapper   - Integer,String,Double
+	
+Autoboxing and unboxing 
+	converting primitive to wrapper
+	converting wrapper 	 to primitive
+	
+Difference between == and .equals()
+	== compares reference
+	.equals compares content
+
+hashCode() vs equals()
+	equals() compares the Object type - Content
+	hashTable,hashMap,HashTable using the Hasing integer Techinque so when we Override the equals() need to Override hashCode()
+	
+	if two obj are same then the hash should be same
+	if two obj hash are same doesnt meant that two obj are equal
+	
+Functional Interface	Abstract Method Signature		Lambda Example
+Runnable					void run()					() -> System.out.println("Run")
+Comparator<T>				int compare(T a, T b)		(a, b) -> a.length() - b.length()
+Predicate<T>				boolean test(T t)			 x -> x > 5
+
+Constructors
+	Default or no-Arg and Paramaterised constructor
+	when obj is created constructor is called 
+	consturtor acnnot be static, final and abstract
+	multiple constructor can be used inside a class
+	super keyword was used to call the SuperClass constructor
+	
+Enum
+	is a class 
+	can be decalred with name enum - for using in the value cannot be changed entity ex: Shapes
+	inside other class and outside other class we can use 
+	inside method we can use but only inside the method we can call it 
+	
+	.ordinal() - index value 
+	.values()  - get all Values
+	
+Generics - we dont need to mention the Types in Constructor
+
+	import java.util.*;
+	public class Main
+	{
+		public static void main(String[] args) {
+			System.out.println("Hello World");
+			
+			GenericsTest obj = new GenericsTest("Siraj",1);
+			obj.print();
+			
+		}
+	}
+
+	class GenericsTest<S,I>{
+		private  S name;
+		private  I id;
+		
+		GenericsTest(S name,I id){
+			this.name = name;
+			this.id = id;
+		}
+		
+		public void print(){
+			System.out.println(name);
+			System.out.println(id);
+		}
+	}
+	
+Reflection API:
+	// Get Class object
+	// Instantiate object dynamically 
+	// Access field and modify it
+	// Access annotations
+
+  Class<?> clazz = Class.forName("Demo");
+
+        // Create an instance
+        Object obj = clazz.getDeclaredConstructor().newInstance();
+
+        // Get the method
+        Method method = clazz.getMethod("sayHello", String.class);
+
+        // Invoke the method
+        method.invoke(obj, "Alice");
+------------------------------------------------------------------
+Feature	Comparable	Comparator
+Package	java.lang	java.util
+Method	compareTo()	compare()
+------------------------------------------------------------------
+Strong vs Weak Ref
+
+Memory Reachability Levels
+
+Java reference strengths from strongest to weakest:
+
+	ReferenceType	GC Behavior
+	Strong			Never collected while referenced
+	Soft			Collected only when memory is low
+	Weak			Collected during next GC
+	Phantom			Collected after finalization tracking
+	
+	Strong vs Weak Reference
+	Feature					Strong Reference		Weak Reference
+	Default reference 		Yes						No
+	Prevents GC				Yes						No
+	Memory-safe caching		Poor					Good
+	Access object directly	Yes						Through get()
+	GC behavior	Survives	Cleared 				quickly
+	
+************************************************************************
+************************************************************************
+Patterns:
+*
+**
+***
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		
+		int n = 5;
+		
+		for(int i=0;i<=n;i++){
+		    for(int j=0;j<=i;j++){
+		        System.out.print(j);
+		    }System.out.println();
+		}
+		
+	}
+}
+************************************************************************
+     *
+    ***
+   *****
+  *******
+ *********
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+
+		int n = 5;
+
+		for(int i=1; i<=n; i++) {
+
+			for(int k=0; k<=n-i; k++) {
+				System.out.print(" ");
+			}
+
+
+			for(int j=1; j<=(2*i-1); j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+
+	}
+}
+************************************************************************
+Spring vs SpringBoot
+	servelet to spring omitting web.xml
+	Depedency managment - pom.xml with version in springBoot without version
+	spring manually need to create DispacherServelet CLASS and need to maintain packages but in SB auto-configuration 
+	SB has embedded server
+	
+	
+┌─────────────────────────┐
+│   JVM Starts            │
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│ main() method runs      │
+│ SpringApplication.run() │
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│ Load application config │
+│ (properties / yml)      │
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│ Auto Configuration      │
+│ (based on dependencies)│
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│Create ApplicationContext│
+│ (IoC Container)         │
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│ Bean Creation & DI      │
+│ (@Component, @Service)  │
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│ Lifecycle Callbacks     │
+│ (@PostConstruct,        │
+│  CommandLineRunner)     │
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│ Embedded Server Starts  │
+│ (Tomcat / Jetty)        │
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│ Application Ready       │
+│ Listening on port 8080  │
+└─────────────────────────┘
+
+	
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-data-rest-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-thymeleaf-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasklist | findstr java
+tasklist | findstr gradle
+
+
+taskkill /F /PID 20784
+taskkill /F /PID 21056
+taskkill /F /PID 23224
+taskkill /F /PID 2452
+taskkill /F /PID 3364
+-----------------------------------------------------------------------------------------------------
+Common Built-in Functional Interfaces
+
+Java provides many ready-made ones in the package:
+
+Runnable → run()
+Callable → call()
+Comparator → compare()
+
+From java.util.function:
+
+Predicate<T> → returns boolean test()
+Function<T, R> → takes input, returns output apply()
+Consumer<T> → takes input, no return accept()
+Supplier<T> → returns value, no input get()
+
+		Predicate<String> t = s->s.equals("test");
+		System.out.println(t.test("test"));
+		
+		Function<String,String> func = s-> s + "hi";
+		System.out.println(func.apply("test "));
+		
+		Consumer<Integer> con = s-> System.out.println(s);
+		con.accept(12345);
+		
+		Supplier<Double> sup = () -> Math.random();
+		System.out.println(sup.get());
+		
+-----------------------------------------------------------------------------------------------------
+Comparison: Record vs Normal Class
+Feature						Record				Normal Class
+
+Fields					Final by default		Mutable unless final
+
+Getters					Auto-generated			Must write manually
+
+Setters					Not allowed				Allowed
+
+equals() & hashCode()	Auto-generated			Must write manually
+
+toString()				Auto-generated			Must write manually
+
+Extends					Cannot extend classes	Can extend classes
+-----------------------------------------------------------------------------------------------------
+Fail-fast Iterator
+	Collections maintain an internal modification count called modCount.
+
+	The iterator checks:
+
+	If collection structure changes unexpectedly,
+	Iterator detects mismatch,
+	Throws exception.
+
+Fail-Safe Iterator
+
+	Fail-safe iterators work on a copy/snapshot of the collection.
+
+	They do not throw ConcurrentModificationException.
+
+	CopyOnWriteArrayList
+	ConcurrentHashMap
+-----------------------------------------------------------------------------------------------------
+| Modifier                | Class | Package | Subclass | World (anywhere) |
+| ----------------------- | ----- | ------- | -------- | ---------------- |
+| `private`               | ✅     | ❌       | ❌        | ❌                |
+
+| `default` (no modifier) | ✅     | ✅       | ❌        | ❌                |
+
+| `protected`             | ✅     | ✅       | ✅        | ❌                |
+
+| `public`                | ✅     | ✅       | ✅        | ✅                |
+
+-----------------------------------------------------------------------------------------------------
+| Keyword    | What It Refers To / Does       | Usage Example            | Key Notes / Memory Tip                                                         |
+| ---------- | ------------------------------ | ------------------------ | ------------------------------------------------------------------------------ |
+| **final**  | Constant, unchangeable         | `final int x = 10;`      | Cannot change variable, override method, or inherit class. Think **“frozen”**. |
+|            | Method cannot be overridden    | `final void show() {}`   | Protects method from being modified in subclasses.                             |
+|            | Class cannot be subclassed     | `final class A {}`       | Prevents inheritance.                                                          |
+
+| **static** | Belongs to class, not instance | `static int count = 0;`  | Shared across all objects. Think **“one per class”**.                          |
+|            | Static method                  | `static void greet() {}` | Can call without creating object.                                              |
+|            | Static block                   | `static { … }`           | Runs once when class loads.                                                    |
+
+| **this**   | Refers to current object       | `this.x = x;`            | Access instance variables or constructors. Think **“me, the current object”**. |
+|            | Call another constructor       | `this(10);`              | Useful for constructor chaining.                                               |
+|            | Pass current object            | `display(this);`         | Often used to pass object reference.                                           |
+
+| **super**  | Refers to parent class         | `super.x`                | Access parent class field. Think **“above me”**.                               |
+|            | Call parent method             | `super.display();`       | Can call overridden method of parent.                                          |
+|            | Call parent constructor 1st    | `super(100);`            | Must be first line in constructor.                                             |
+
+-----------------------------------------------------------------------------------------------------
+final
+	variable - decalred as constant value cannt be override
+	method   - cannot be override
+	class 	 - cannot be inherit
+-----------------------------------------------------------------------------------------------------
+JAVA 17 Feature:
+	* sealed class
+	* Records
+	* pattern matching switch 
+		switch (obj) {
+			case Integer i -> System.out.println(i);
+			case String s -> System.out.println(s);
+			default -> {}
+		}
+
+SEALED CLASS : ARE NEED TO BE PERMITS THE CLASS WHICH ARE NEEED TO BE EXTEND
+
+sealed class A permits B,C {
+    
+    void test(){
+        System.out.print("Message");
+    }
+}
+
+final class B extends A{
+    
+}
+
+non-sealed class C extends A{
+    
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+	
+	    B obj = new B();
+	    obj.test();
+		
+	}
+	
+}
+
+Record:
+
+record Person(String name, int age) {
+    
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+	    Person obj = new Person("siraj",25);
+	    System.out.println(obj.name());
+	    
+	}
+}
+-----------------------------------------------------------------------------------------------------
+SOLID principel:
+
+| Principle 									| Core Idea                                   | Java Example Highlight                  |
+
+| S – Single Responsibility Principle (SRP)     | One class, one reason to change             | `User`, `UserRepository`, `UserPrinter` |
+
+| O – Open/Closed Principle (OCP)      			| Open for extension, closed for modification | `Shape` interface with `area()`         |
+
+| L – Liskov Substitution Principle (LSP)       | Subtypes can replace base types             | `Flyable` interface for birds           |
+
+| I – Interface Segregation Principle (ISP)     | Many small interfaces better than one big   | `Workable` & `Eatable` interfaces       |
+
+| D – Dependency Inversion Principle (DIP)      | Depend on abstractions, not concretions     | `Switchable` interface for `Switch`     |
+
+
+-----------------------------------------------------------------------------------------------------
+pg need to start 
+
+bruno api hit tool [postman / bruno]
+
+sprinboot - 3.5 LTS
+
+async function test() {
+  for (let i = 0; i < 200; i++) {
+    fetch("https://www.youtube.com/shorts/38-vatPhzB4")
+	
+      .then(r => r.text())
+      .then(console.log);
+
+    await new Promise(r => setTimeout(r, 10)); // small delay
+  }
+}
+
+test();
+
+
+---------------
+
+async function demo() {
+  for (let i = 0; i < 1000; i++) {
+
+    const win = window.open(
+      "https://www.youtube.com/shorts/38-vatPhzB4",
+      "_blank"
+    );
+
+    console.log("Opened tab:", i);
+
+    await new Promise(r => setTimeout(r, 2000));
+
+    if (win) {
+      win.close();
+    }
+  }
+}
+
+demo();
+-----------------------------------------------------------------------------------------------------
+IE CODE:
+
+var count = 0;
+var maxCount = 1000;
+
+function demo() {
+
+    if (count >= maxCount) {
+        console.log("Finished");
+        return;
+    }
+
+    var win = window.open(
+        "https://www.youtube.com/shorts/38-vatPhzB4",
+        "_blank"
+    );
+
+    console.log("Opened tab: " + count);
+
+    count++;
+
+    setTimeout(function () {
+
+        try {
+
+            if (win && !win.closed) {
+                win.close();
+            }
+
+        } catch (e) {
+            console.log("Close Error: " + e.message);
+        }
+
+        demo();
+
+    }, 2000);
+}
+
+demo();
+
+
+
+
+-----------------------------------------------------------------------------------------------------
+
+Edge Working Code:
+async function demo() {
+
+  const openedTabs = [];
+
+  for (let i = 0; i < 1000; i++) {
+
+    const win = window.open(
+      "https://www.youtube.com/shorts/38-vatPhzB4",
+      "_blank"
+    );
+
+    openedTabs.push(win);
+
+    console.log("Opened tab:", i);
+
+    // Close this tab after 50 seconds
+    (function(tab, index) {
+
+      setTimeout(function() {
+
+        try {
+
+          if (tab && !tab.closed) {
+            tab.close();
+            console.log("Closed tab:", index);
+          }
+
+        } catch(e) {
+          console.log("Close Error:", e);
+        }
+
+      }, 30000);
+
+    })(win, i);
+
+    // wait 2 seconds before opening next tab
+    await new Promise(function(resolve) {
+      setTimeout(resolve, 1000);
+    });
+  }
+}
+
+demo();
+
+
+-----------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<body>
+<button onclick="runTest()">Run Demo</button>
+
+<script>
+async function openWindow(id) {
+    const win = window.open("", "_blank");
+	
+	const win = window.open(
+        "https://www.youtube.com/shorts/38-vatPhzB4",
+        "_blank"
+    );
+
+    if (!win) {
+        console.log("Popup blocked:", id);
+        return;
+    }
+
+    win.document.write(`
+        <h1>Test Window ${id}</h1>
+        <p>This is a safe local demo.</p>
+    `);
+
+    console.log("Opened:", id);
+
+    await new Promise(r => setTimeout(r, 3000));
+
+    win.close();
+
+    console.log("Closed:", id);
+}
+
+async function runTest() {
+    const tasks = [];
+
+    for (let i = 0; i < 5; i++) {
+        tasks.push(openWindow(i));
+    }
+
+    await Promise.all(tasks);
+
+    console.log("All done");
+}
+</script>
+</body>
+</html>
+
+
+
+-----------------------------------------------------------------------------------------------------
+
+query - used oly by passing the entity names
+native query - raw sql can used
+
+-----------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------
+********************** TOP 20 STREAM QUES *********************************
+
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	
+	//1 - return a list even 
+	List<Integer> al = List.of(1,2,3,4,5);
+	List<Integer> evenList = al.stream() 
+	    .filter(e-> e % 2 == 0).collect(Collectors.toList());
+	    System.out.println("evenList = " + evenList);
+	    
+	//2 - find MAX val in a List
+	List<Integer> al1 = List.of(1,2,3,4,5);
+	Optional<Integer> maxOp = al1.stream()
+	    .max(Integer::compare);
+	    System.out.println(maxOp);
+	 
+	//3 - convert to UpperCase a List
+	List<String> up = List.of("a","b","c");
+	up.stream()
+	    .map(e->e.toUpperCase()).forEach(System.out::print);
+	    
+	//4 - filter string starting with letter A 
+	List<String> sa = List.of();
+	List<String> saOP = sa.stream()
+	    .filter(e->e.startsWith("A")).collect(Collectors.toList());
+	    System.out.println("saOP=" + saOP);
+	    
+	//5 - remove duplicate in List
+	List<String> rem = List.of("aa","bb","a","cc","cc");
+	List<String> remOP = rem.stream().distinct().collect(Collectors.toList());
+	System.out.println("remOP=" + remOP );
+	
+	//6 - sort list of integer in desc
+	List<Integer> desc = List.of(1,3,2,4,10,5,6,1,8,0);
+	List<Integer> descOP = desc.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+	System.out.println("descOP :" + descOP);
+	
+	//7 - sort list of integer in asc
+	List<Integer> asc = List.of(1,3,2,4,10,5,6,1,8,0);
+	List<Integer> ascOP = asc.stream().sorted().collect(Collectors.toList());
+	System.out.println("ascOP: " + ascOP);
+	
+	//8 - count num of string with length > 3
+	List<String> count = List.of("aaa","bbb","a","djdg","qwe");
+	Long countOP = count.stream().filter(e->e.length() > 3).count();
+	System.out.println("countOP:" + countOP);
+	
+	//9 - join string using commas
+	List<String> join = List.of("aaa","bbb","a","djdg","qwe");
+	String joinOP = join.stream().collect(Collectors.joining(","));
+	System.out.println(joinOP);
+	
+	//10 - convert list of string to Set
+	List<String> con =  List.of("aaa","bbb","aaa","djdg","qwe");
+	con.stream().collect(Collectors.toSet());
+	System.out.println("con" + con);
+	
+	//11 - find first elemt in List
+	List<Integer> fi = List.of(1,3,5,2,4,6);
+	Optional<Integer> fiOP = fi.stream().findFirst();
+	System.out.println("fiOP=" + fiOP);
+
+	//12 - sum of all Int 
+	List<Integer> su = List.of(1,3,5,2,4,6);
+	Integer suOp = su.stream().mapToInt(Integer::intValue).sum();
+	System.out.println("suOp=" + suOp);
+
+	//13 - count element > 5 
+	List<Integer> co = List.of(1,3,5,2,4,6);
+	Long coOP = co.stream().filter(e->e > 5).count();
+	System.out.println("coOP=" + coOP);
+
+	// 14 - retrieve all distrinct element in List
+	List<Integer> dis = List.of(1,2,3,3,2);
+	List<Integer> disOP = dis.stream().distinct().collect(Collectors.toList());
+	System.out.println("disOP= "+ disOP);
+
+	//15 - skip first two element and return all other element
+	List<Integer> sk = List.of(1,2,3,4,5,6);
+	List<Integer> skOP = sk.stream().skip(2).collect(Collectors.toList());
+	System.out.println("skOP=" + skOP);
+	
+	
+	import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	    
+	    List<A> list = Arrays.asList(
+            new A("John", 25, "IT", 50000),
+            new A("Alice", 30, "HR", 60000),
+            new A("Bob", 25, "IT", 55000),
+            new A("David", 30, "Finance", 70000)
+        );
+        
+        //16 - group by age
+        list.stream().collect(Collectors.groupingBy(A::getAge))
+        .forEach((k,v)->{
+        //System.out.println(k.toString());
+        //System.out.println(v.toString());
+        // v.forEach(System.out::println);
+        });
+        
+        //find highers
+        Optional<A> op = list.stream()
+        .sorted(Comparator.comparingInt(A::getSalary).reversed())
+        .findFirst();
+        System.out.println(op);
+        
+        //find second lowest
+        Optional<A> opASC = list.stream()
+            .sorted(Comparator.comparingInt(A::getSalary)).skip(1)
+            .findFirst();
+            System.out.println("opASC"+opASC);
+		
+    
+	}
+}
+
+class A{
+    
+    private String name;
+    private int age;
+    private String dept;
+    private int salary;
+    
+    A(String name,int age,String dept,int salary){
+        this.name = name;
+        this.age  = age;
+        this.dept = dept;
+        this.salary = salary;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public int getAge() {
+        return age;
+    }
+    
+    public void setAge(int age) {
+        this.age = age;
+    }
+    
+    public String getDept() {
+        return dept;
+    }
+    
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+    
+    public int getSalary() {
+        return salary;
+    }
+    
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+    
+    @Override
+public String toString() {
+    return "A{" +
+            "name='" + name + '\'' +
+            ", age=" + age +
+            ", dept='" + dept + '\'' +
+            ", salary=" + salary +
+            '}';
+}
+    
+}
+	
+	}
+}
+
+
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+	
+	//1 - return a list even 
+	List<Integer> al = List.of(1,2,3,4,5);
+	List<Integer> evenList = al.stream() 
+	    .filter(e-> e % 2 == 0).collect(Collectors.toList());
+	    System.out.println("evenList = " + evenList);
+	    
+	//2 - find MAX val in a List
+	List<Integer> al1 = List.of(1,2,3,4,5);
+	Optional<Integer> maxOp = al1.stream()
+	    .max(Integer::compare);
+	    System.out.println(maxOp);
+	 
+	//3 - convert to UpperCase a List
+	List<String> up = List.of("a","b","c");
+	up.stream()
+	    .map(e->e.toUpperCase()).forEach(System.out::print);
+	    
+	//4 - filter string starting with letter A 
+	List<String> sa = List.of();
+	List<String> saOP = sa.stream()
+	    .filter(e->e.startsWith("A")).collect(Collectors.toList());
+	    System.out.println("saOP=" + saOP);
+	    
+	//5 - remove duplicate in List
+	List<String> rem = List.of("aa","bb","a","cc","cc");
+	List<String> remOP = rem.stream().distinct().collect(Collectors.toList());
+	System.out.println("remOP=" + remOP );
+	
+	//6 - sort list of integer in desc
+	List<Integer> desc = List.of(1,3,2,4,10,5,6,1,8,0);
+	List<Integer> descOP = desc.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+	System.out.println("descOP :" + descOP);
+	
+	//7 - sort list of integer in asc
+	List<Integer> asc = List.of(1,3,2,4,10,5,6,1,8,0);
+	List<Integer> ascOP = asc.stream().sorted().collect(Collectors.toList());
+	System.out.println("ascOP: " + ascOP);
+	
+	//8 - count num of string with length > 3
+	List<String> count = List.of("aaa","bbb","a","djdg","qwe");
+	Long countOP = count.stream().filter(e->e.length() > 3).count();
+	System.out.println("countOP:" + countOP);
+	
+	//9 - join string using commas
+	List<String> join = List.of("aaa","bbb","a","djdg","qwe");
+	String joinOP = join.stream().collect(Collectors.joining(","));
+	System.out.println(joinOP);
+	
+	//10 - convert list of string to Set
+	List<String> con =  List.of("aaa","bbb","aaa","djdg","qwe");
+	con.stream().collect(Collectors.toSet());
+	System.out.println("con" + con);
+	
+	//11 - find first elemt in List
+	List<Integer> fi = List.of(1,3,5,2,4,6);
+	Optional<Integer> fiOP = fi.stream().findFirst();
+	System.out.println("fiOP=" + fiOP);
+
+	//12 - sum of all Int 
+	List<Integer> su = List.of(1,3,5,2,4,6);
+	Integer suOp = su.stream().mapToInt(Integer::intValue).sum();
+	System.out.println("suOp=" + suOp);
+
+	//13 - count element > 5 
+	List<Integer> co = List.of(1,3,5,2,4,6);
+	Long coOP = co.stream().filter(e->e > 5).count();
+	System.out.println("coOP=" + coOP);
+
+	// 14 - retrieve all distrinct element in List
+	List<Integer> dis = List.of(1,2,3,3,2);
+	List<Integer> disOP = dis.stream().distinct().collect(Collectors.toList());
+	System.out.println("disOP= "+ disOP);
+
+	//15 - skip first two element and return all other element
+	List<Integer> sk = List.of(1,2,3,4,5,6);
+	List<Integer> skOP = sk.stream().skip(2).collect(Collectors.toList());
+	System.out.println("skOP=" + skOP);
+	
+	
+	}
+}
+-----------------------------------------------------------------------------------------
+import java.util.*;
+import java.util.stream.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Emp> employees = Arrays.asList(
+
+                new Emp("John", 28, 50000, "IT", "3 Years"),
+                new Emp("Alice", 30, 65000, "HR", "5 Years"),
+                new Emp("David", 26, 45000, "Finance", "2 Years"),
+                new Emp("Sophia", 35, 80000, "IT", "8 Years"),
+                new Emp("Michael", 32, 72000, "Sales", "6 Years"),
+                new Emp("Emma", 27, 48000, "Marketing", "3 Years"),
+                new Emp("Daniel", 40, 95000, "Management", "12 Years"),
+                new Emp("Olivia", 29, 55000, "Support", "4 Years"),
+                new Emp("James", 31, 70000, "Finance", "7 Years"),
+                new Emp("Isabella", 25, 42000, "HR", "1 Year")
+
+        );
+
+        //employees.forEach(System.out::println);
+        
+        //21 filter emp based on dept:
+        
+        employees.stream()
+            .collect(Collectors.groupingBy(Emp::getSalary))
+            .forEach((k,v)->{
+               // System.out.println(k);
+               //System.out.println(v);
+            });
+            
+        //21 filter based on experience:
+        employees.stream()
+            .collect(Collectors.groupingBy(Emp::getExperience))
+            .forEach((k,v)->{
+                //System.out.println(k);
+                //System.out.println(v);
+            });
+            
+        //21 filter based on salary:
+        employees.stream()
+            .collect(Collectors.groupingBy(Emp::getSalary))
+            .forEach((k,v)->{
+               // System.out.println(k);
+                //System.out.println(v);
+            });
+            
+        //20 sort employees by name:
+        employees.stream()
+            .sorted(Comparator.comparing(Emp::getAge).reversed()).forEach(System.out::println);
+        
+    }
+}
+
+class Emp {
+
+    private String name;
+    private int age;
+    private int salary;
+    private String dept;
+    private String experience;
+
+    // Constructor
+    public Emp(String name, int age, int salary, String dept, String experience) {
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
+        this.dept = dept;
+        this.experience = experience;
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public String getDept() {
+        return dept;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    // Setters
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    // toString()
+    @Override
+    public String toString() {
+        return "Emp{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", salary=" + salary +
+                ", dept='" + dept + '\'' +
+                ", experience='" + experience + '\'' +
+                '}';
+    }
+}
+-----------------------------------------------------------------------------------------
+AWS:
+	S3 bucket - storage and we can upload files,img,app,folder
+		AWS Region 
+		bucket type - general nd directory
+		bucket name 
+		object ownership - ACL OWNERSHIP enable / disable
+		block public access
+		bucket versioning
+		Encryption type - sse-s3
+		object lock
+		
+	AWS SDK - Software Development Kit
+		local -> AWS SDK - Software Development Kit -> S3 Client - Bucket
+	
+	AWS EC2 - Elastic compute cloud - Computer
+		virtual servers - called instances - scale vertical / horizontal - pay oly for use
+		1.AMI - Amazon machine image [OS - linux,window,ubuntu or custom]
+		2.Instance type - t2.micro 1cpu /nano /medium /small/ large
+			T,M,C,D - series
+		3.key - pair [SSH] - use file type password
+			RSA / ED25519
+			.pem - mac - open SSH
+			.ppk - window using putty
+		4.Security Group 
+			allow SSH traffic 
+			custom ip or global public
+			
+	AWS Lambda
+		is a serverless compute service
+		we dont manage servers
+		Lambda automatically scale and run on it demands
+		only pay for execution timing req
+
+-----------------------------------------------------------------------------------------------------
+SPRING JPA :
+
+App -> JPA[interface] -> Hibernate[implementation] -> JDBC -> DB Drive -> Relation DB [SQL]
+
+ORM Framework : JPA[interface] -> Hibernate[implementation]
+
+JDBC without SB:
+	- make connection with DB
+	- query db nd process result
+	- sActual impl is provided by specific DB drivers
+	- create a connection class A - loads drivers - getConnection() - preparedStatement - Callable Statement [for procedure]
+	- disadvantage :
+		- closing db connection 
+		- memory leak 
+		- need to hanlde exception
+		
+JDBC with SB:
+	- no need to open/close connection
+	- starter jdbc dependcy
+	- sql - drive dependcy
+	- reduce boiler plant code
+	- jdbcTemplate.execut/upadte :
+	- dataSource manage connection pool
+	- whn app start  DriveManage class is started
+	- whn we run .query it will connect new connection or takes from pool no need for manual connection
+	- closing also handle by jdbc
+	- default - hikari database used min / max of 10 is used if we need to change then change in app.properities
+	
+ORM : Object-Relational-Mapping
+	- works as a bridge between Java Obj to SQL query
+	- works with Object, no sql needed
+	- ORM uses Hibernate implement
+	- dep : spring-boot-data-jpa - which have hibernate also
+	- db properties need to be addes in app.properties file
+	- need to creATE a Entity Class
+	- @Id
+	- @GeneratedValue(stratrgy = GenerationTyoe.IDENTITY)
+	- need to extends the JpaRepository by Repository
+	- own query used in Repository
+	- Contoller -> Service -> Repo -> DB
+	- .getALL .save .findAll
+	- to debug wht query is runnning:
+		- spring.jpa.show-sql = true
+		- spring.jpa.properities.hibernate.format_sql = true
+		
+JPA Architeure:
+	1.Persisitence Unit : Configuration - App.Properties
+		- DB connection , dialect , driver 
+		
+	2.EntityManagerFactory
+		- for one Persisitence unit one Java Object EntityManagerFactory is created
+		- equal no of EntityManagerFactory will create for Persisitence Unit
+		- each EntityManagerFactory will have transactionsmanager
+		
+	3.Entity Manager 
+		- is a session in SpringBoot
+		- JpaRepository internally connect Entity Manager it have save() findall() findbyid ()
+		- session impl class is used for query - Entity Manager  obj is required
+		- insert update delete are interally annotatited with transactional 
+		
+JPA - First Level Caching
+
+-----------------------------------------------------------------------------------------------------
+import java.util.*;
+import java.util.stream.*;
+
+
+public class Main
+{   
+	public static void main(String[] args) {
+	
+	List<String> al = Arrays.asList("Apple","Banana","Orange");
+
+	
+	al.stream()
+	    .map(e->e.chars().distinct().mapToObj(c-> String.valueOf( (char) c)).collect(Collectors.joining()))  .forEach(System.out::print);
+	
+	}
+}
+----------------------------------------------------------------------------------------------------  
+ 
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function demo() {
+
+  const MAX_OPEN_TABS = 10;
+  const OPEN_DELAY = 1000;
+  const TAB_LIFETIME = 20000;
+
+  let activeTabs = [];
+  
+    function clearCookies() {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      const eqPos = cookie.indexOf("=");
+      const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
+      // Set expiry in the past to delete it
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.youtube.com";
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+    }
+    console.log("✅ Cookies cleared");
+  }
+
+  for (let i = 0; i < 5000; i++) {
+  
+    // Remove closed tabs
+    activeTabs = activeTabs.filter(function(tab) {
+      return tab && !tab.closed;
+    });
+
+    // Wait if too many tabs are open
+    while (activeTabs.length >= MAX_OPEN_TABS) {
+
+      await new Promise(function(resolve) {
+        setTimeout(resolve, 500);
+      });
+
+      activeTabs = activeTabs.filter(function(tab) {
+        return tab && !tab.closed;
+      });
+    }
+
+    //const win = window.open("about:blank", "_blank");
+	 const win = window.open("https://www.youtube.com/shorts/38-vatPhzB4","_blank");
+
+    if (win) {
+
+      activeTabs.push(win);
+
+      console.log(
+        "Opened:",
+        i,
+        "Active Tabs:",
+        activeTabs.length
+      );
+
+      setTimeout(function() {
+
+        try {
+
+          if (win && !win.closed) {
+            win.close();
+            console.log("Closed:", i);
+          }
+
+        } catch(e) {}
+
+      }, TAB_LIFETIME);
+    }
+
+    await new Promise(function(resolve) {
+      setTimeout(resolve, OPEN_DELAY);
+    });
+  }
+}
+
+demo();
+-----------------------------------------------------------------------------------------------------
+async function demo() {
+  const MAX_OPEN_TABS = 5;
+  const OPEN_DELAY = 1000;
+  const TAB_LIFETIME = 18000;
+  let activeTabs = [];
+
+  // ================== CLEAR EVERY SESSION (Edge Compatible) ==================
+  function clearEverySession() {
+    try {
+      // Clear Session Storage (per tab)
+      sessionStorage.clear();
+
+      // Clear Local Storage (shared across tabs)
+      localStorage.clear();
+
+      // Clear all cookies for youtube.com
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
+
+        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.youtube.com`;
+        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+      }
+
+      console.log("✅ Cleared: sessionStorage + localStorage + cookies");
+    } catch (e) {
+      console.warn("Clear failed:", e);
+    }
+  }
+  // =========================================================================
+
+  for (let i = 0; i < 1000; i++) {
+    // Remove closed tabs
+    activeTabs = activeTabs.filter(tab => tab && !tab.closed);
+
+    // Wait if too many tabs are open
+    while (activeTabs.length >= MAX_OPEN_TABS) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+      activeTabs = activeTabs.filter(tab => tab && !tab.closed);
+    }
+
+    // ========== CLEAR SESSION BEFORE EVERY NEW TAB ==========
+    clearEverySession();
+    // =========================================================
+
+    //const win = window.open("https://www.youtube.com/shorts/38-vatPhzB4", "_blank");
+		const win = window.open("https://youtube.com/shorts/oZT4bkWlHWE", "_blank");
+
+    if (win) {
+      activeTabs.push(win);
+      console.log("Opened:", i, "Active Tabs:", activeTabs.length);
+
+      setTimeout(() => {
+        try {
+          if (win && !win.closed) {
+            win.close();
+            console.log("Closed:", i);
+          }
+        } catch (e) {}
+      }, TAB_LIFETIME);
+    }
+
+    await new Promise(resolve => setTimeout(resolve, OPEN_DELAY));
+  }
+}
+
+demo();
+-----------------------------------------------------------------------------------------------------
+async function demo() {
+  const MAX_OPEN_TABS = 15;                    // Increased to 15
+  const TAB_LIFETIME = 25000;                  // 25 seconds per tab
+  let activeTabs = [];
+
+  function clearEverySession() {
+    try {
+      sessionStorage.clear();
+      localStorage.clear();
+
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
+
+        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.youtube.com`;
+        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+      }
+      console.log("✅ Cleared session");
+    } catch (e) {}
+  }
+
+  // Random delay between 1 to 3 seconds
+  function getRandomDelay() {
+    return Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000;
+  }
+
+  for (let i = 0; i < 1000; i++) {
+    activeTabs = activeTabs.filter(tab => tab && !tab.closed);
+
+    while (activeTabs.length >= MAX_OPEN_TABS) {
+      await new Promise(r => setTimeout(r, 600));
+      activeTabs = activeTabs.filter(tab => tab && !tab.closed);
+    }
+
+    clearEverySession();
+
+    const win = window.open("https://youtube.com/shorts/oZT4bkWlHWE", "_blank");
+
+    if (win) {
+      activeTabs.push(win);
+      console.log(`Opened: ${i} | Active: ${activeTabs.length}`);
+
+      setTimeout(() => {
+        try {
+          if (win && !win.closed) win.close();
+        } catch (e) {}
+      }, TAB_LIFETIME);
+    }
+
+    // Random delay (1-3 seconds)
+    const delay = getRandomDelay();
+    await new Promise(resolve => setTimeout(resolve, delay));
+  }
+}
+
+demo();
+-------------------Using MAP:
+async function demo() {
+  const MAX_OPEN_TABS = 12;                    // Slightly reduced for stability
+  let activeTabs = new Map();
+
+  function clearEverySession() {
+    try {
+      sessionStorage.clear();
+      localStorage.clear();
+
+      const cookies = document.cookie.split(";");
+      for (let cookie of cookies) {
+        const name = cookie.split("=")[0].trim();
+        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.youtube.com`;
+        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+      }
+    } catch (e) {}
+  }
+
+  function getRandom(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function cleanupTabs() {
+    for (let [id, win] of activeTabs) {
+      try {
+        if (!win || win.closed) activeTabs.delete(id);
+      } catch (e) {
+        activeTabs.delete(id);
+      }
+    }
+  }
+
+  for (let i = 0; i < 1000; i++) {
+    cleanupTabs();
+
+    while (activeTabs.size >= MAX_OPEN_TABS) {
+      await new Promise(r => setTimeout(r, 700));
+      cleanupTabs();
+    }
+
+    clearEverySession();
+
+    const win = window.open("https://youtube.com/shorts/oZT4bkWlHWE", "_blank");
+
+    if (win) {
+      const tabId = Date.now();
+      activeTabs.set(tabId, win);
+
+      // Random lifetime between 1s to 20s
+      const randomLifetime = getRandom(1000, 50000);
+
+      console.log(`Opened: ${i} | Active: ${activeTabs.size} | Lifetime: ${Math.round(randomLifetime/1000)}s`);
+
+      setTimeout(() => {
+        try {
+          if (win && !win.closed) win.close();
+          activeTabs.delete(tabId);
+        } catch (e) {}
+      }, randomLifetime);
+    }
+
+    // Random delay between 1.5s – 45s
+    const delay = getRandom(1500, 45000);
+    await new Promise(resolve => setTimeout(resolve, delay));
+  }
+}
+
+demo();
+-----------------------------------------------------------------------------------------------------
+JAVA TOPICS:
+OOPs Fundamentals | 4 Pillar of Java
+How Java Program Works and its 3 Important Components (JVM, JRE and JDK)
+Quiz Question: Why only 1 Public Class in JAVA file
+Java Variables - Part1 | Primitive Data Types in Depth
+How FLOAT and DOUBLE Number Stored in Memory? | IEEE 754 Representation
+Java Variables - Part2 | Reference/Non-Primitive Data Types in Depth
+Java Methods in Depth | Different Types of Methods with Examples
+Java Constructor in Depth | Different Types of Constructor with Examples
+Java Memory Management and Garbage Collection in Depth
+Java Classes - Part1 | Nested, Concrete, Abstract, Object, Super & Sub Classes
+Java Generic Classes | Java Classes in Depth - Part2
+Java Enum, POJO and Final Classes Explained with Examples | Java Classes - Part3
+Java Singleton & Immutable Class Explained with Examples | Java Classes - Part4
+Java Interface in Depth - Part1
+Default, Static & Private Method in Interface - Java Interfaces Part-2
+Functional Interface and Lambda Expression - Java8 | Java Interface Part3
+Java Reflection in Depth (Using Examples)
+Java Annotations with Examples
+Exception Handling in Java with Examples
+Operators in Java | Different Types of Operators in JAVA
+Control Flow Statements in Java | Decision Making, Looping & Branching Statement
+Collections in Java - Part1 | Java Collections Framework in depth
+Collections in Java - Part2 | Comparator Vs Comparable | PriorityQueue
+Collections in Java - Part3 | Deque and List in Depth
+Collections in Java - Part4 | HashMap Internal Working in Java
+Collections in Java - Part5 | LinkedHashMap and TreeMap in depth
+Collections in Java - Part6 | SET
+Streams in Java8 | Collections in Java - Part7
+Multithreading and Concurrency in Java: Part1
+Thread Creation, Thread Lifecycle and Inter-Thread Communication
+Thread Joining, Daemon Thread, Thread Priority | Multithreading in Java
+Locks and Condition | Java Multithreading
+Lock-Free Concurrency | Compare-and-Swap
+Thread Pools in Java | ThreadPoolExecutor Framework | Multithreading
+Java8 CompletableFuture | Future & Callable in Java
+ForkJoinPool, WorkStealingPool, FixedThreadPool, CachedThreadPool & SingleThread
+Java ScheduledThreadPoolExecutor || Shutdown Vs AwaitTermination
+Java VirtualThreads vs Normal Threads || ThreadLocal in Java
+Project Lombok in Java in depth | Lombok top 10 features
+Java 21 : SequencedCollection, SequencedSet and SequencedMap
+Java 17: Sealed Classes and Interfaces
+Java 14: Switch Expressions Deep Dive
+Java 16: Pattern Matching for instanceof
+Java 21: Pattern Matching for switch
+Java 16: Record class
+Java 15: Text Blocks
+Java Optional from Java 8 to 11
+Java Traditional File Handling | InputStream, OutputStream, Reader and Writer
+
+SpringBoot Topics:
+Introduction to Spring boot | Its Advantage over Spring MVC and Servlets
+Spring boot Project setup and Layered Architecture Introduction
+Introduction to Maven and its Lifecycle | Spring boot Maven project
+Spring boot: Bean and its Lifecycle | Inversion of Control (IOC)
+Spring boot Annotations (Controller Layer) | Controller, RestController etc
+Dependency Injection in Spring boot | With Advantages and Disadvantages
+Spring boot : Bean Scopes | Singleton, Prototype, Request, Session Scopes
+Spring boot: Dynamically Initialized Beans | Value Annotation
+Spring boot @ConditionalOnProperty Annotation
+Spring boot @Profile annotation | How Profiling works in Spring boot
+Spring boot AOP (Aspect Oriented Programming)
+Spring boot @Transactional Annotation - Part1
+Transactional Annotation Part2 | Declarative, Programmatic Approach & Propagation
+Spring boot @Transactional Annotation - Part3 | Isolation Level and its types
+Spring boot @Async Annotation - Part1 | ThreadPoolExecutor
+@Async Annotation - Part2 | Async Annotation Important Interview questions
+Custom Interceptors | How to Intercept Incoming HTTP Request & Custom Annotation
+Filters vs Interceptors | Filters & Interceptors Advantage and Usecases for both
+Spring boot HATEOAS Restful API | Advantage, Disadvantage with Example
+Spring boot ResponseEntity & Response Codes | 1xx, 2xx, 3xx, 4xx and 5xx Codes
+Spring boot Exception Handling
+Spring boot: JPA (PART-1)
+Spring boot: JPA | JPA Setup, Architecture and Entity Relationship
+Spring boot: JPA | First Level Caching
+Spring boot: JPA | Second Level Caching
+Spring boot: JPA | Map DTO to Table
+Spring boot: JPA | OneToOne Mapping Unidirectional and Bidirectional
+Spring boot: JPA | OneToMany, ManyToOne and ManyToMany
+Spring boot: JPA | JPQL, Derived Query, N+1 Problem, Joins, Pagination
+Spring boot: JPA | Native Query and Criteria API
+Spring boot: JPA | Specification API
+Attacks with Demo | Spring Security | CSRF, CORS, XSS, SQL Injection
+Spring Boot Security - Part1 | Architecture
+Spring Boot Security - Part2 | User Creation & Storing Username & Password
+Spring Boot Security - Part3 | Form Based Authentication
+Spring Boot Security - Part4 | Basic Authentication
+Spring Boot Security : What is JWT and its Structure
+Spring Boot Security - JWT Authentication Implementation
+What is OAuth 2.0: Explained
+Spring Boot Security - OAUTH2 Authentication Implementation
+Spring Boot Security - Method Security | Role based Authorization
+
+RestTemplate | Communication between Microservices
+RestClient | Communication between Microservices
+FeignClient in Spring Boot Microservices | Declarative HTTP Client
+Service Discovery and its Implementation
+Client Side Load Balancer and its Implementation
+Rate Limiter
+Bulkhead Pattern
+Retry Pattern
+Circuit Breaker
+ApiGateway in Microservices - Part1 | Routing and Load Balancing
+ApiGateway in Microservices - Part2 | Authentication JWT, Circuit Breaker etc
+Central Configuration
+Actuator
+ConfigurationProperties in-depth
+
+-----------------------------------------------------------------------------------------------------
+ List<String> al = Arrays.asList("apple","banana");
+    
+    al.stream()
+        .map(e-> e.chars().distinct().mapToObj(c-> (char) c).toList()
+            ) .forEach(System.out::println);;
+    
+	
+String s = " Java, Python, and C++ are popular programming languages." +
+
+		           "is used for applications, Python for automation and Al, and C++ for high-performance software." +
+
+		           "Learning Java, Python, and C++ helps build strong coding skills.";
+
+		//find occurance of java,python,c++;
+
+		String d = s.replace(","," ");
+		// System.out.print(d);
+
+		Map<String,Long> map = Stream.of(d.split(" "))
+		                       .filter(e-> e.equals("Java") || e.equals("Python") || e.equals("C++")  )
+		                       .collect(Collectors.groupingBy(e->e,Collectors.counting()));
+		System.out.print(map);
+
+
+import java.util.*;
+
+
+public class Main
+{
+	public static void main(String[] args) {
+
+		int n = 151;
+
+		String s = String.valueOf(n);
+		String[] d = s.split("");
+		int digit = d.length;
+		double result = 1;
+		int c = 0;
+
+		for(int i=0; i<d.length; i++) {
+
+			int f = Integer.parseInt(d[i]);
+
+			result = Math.pow(f,digit);
+
+			c +=  result;
+
+		}
+		
+		System.out.println(c == n);
+
+
+
+	}
+}
+
+
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		
+		int n = 145;
+		
+		String s = String.valueOf(n);
+		String[] d = s.split("");
+		//System.out.println(d);
+		int sq = 1;
+		int ans = 0;
+
+		for(int i=0;i<d.length;i++){
+		    
+		    int digit = Integer.parseInt(d[i]);
+		    int f =1;
+		    for(int j =1;j<=digit;j++){
+		        f = f  * j;
+		    } ans = ans + f;
+		    
+		    
+		    
+		}System.out.println(ans);
+		
+	    
+		
+		
+		
+	}
+}
+
+
+
+--------------------------------------------------------------------------------
+
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+
+		Scanner scan = new Scanner(System.in);
+		System.out.print("enter ans ");
+		int ans = scan.nextInt();
+
+		switch(ans) {
+
+		case 1 : reverse();      break;
+
+		case 2 : palindrome();   break;
+
+		case 3 : largestNum();   break;
+
+		case 4 : swap();         break;
+
+		case 5 : countVowels();  break;
+
+		}
+
+	}
+
+	//1 reverse string
+	static void reverse() {
+		String s = "siraj";
+		for(int i=s.length()-1; i>=0; i--) {
+			System.out.print(s.charAt(i));
+		}
+	}
+
+	//2 palindrome
+	static void palindrome() {
+		String p = "noon";
+		String d = "";
+
+		for(int i=p.length()-1; i>=0; i--) {
+			d += p.charAt(i);
+		}
+
+		if(p.equalsIgnoreCase(d)) System.out.println("p");
+		else                      System.out.println("np");
+	}
+
+	//3 Find the largest of three numbers.
+	static void largestNum() {
+		int[] n = {1,2,0};
+		int t = 0;
+		int r = 0;
+		for(int i=0; i<=n.length-1; i++) {
+
+			for(int j=i+1; j<n.length; j++) {
+				if(n[i] < n[j]) {
+					t = n[i];
+					n[i] = n[j];
+					n[j] = t;
+
+				}
+			}
+
+		}
+		System.out.print(Arrays.toString(n));
+		System.out.println(n[0]);
+	}
+
+	//4 Swap two numbers without a third variable
+	static void swap() {
+		int a = 10;
+		int b = 20;
+
+		a = a + b;
+		b = a - b;
+		a = a - b;
+
+		System.out.println(a + " " + b);
+	}
+
+	//5 Count vowels and consonants in a string.
+	static void countVowels() {
+		String v = "siraj";
+		char[] c = {'a','e','i','o','u'};
+
+		char[] vSplit = v.toCharArray();
+		int count = 0;
+		for(int i=0; i<c.length; i++) {
+			for(int j=0; j<vSplit.length; j++) {
+				if(c[i] == vSplit[j]) {
+					System.out.println(c[i]);
+					count ++;
+				}
+			}
+		}
+		System.out.println(count);
+
+	}
+}
+
+
+--------------------------------------------------------------------------------
