@@ -1,0 +1,57 @@
+SpringBoot Topics:
+Introduction to Spring boot | Its Advantage over Spring MVC and Servlets
+Spring boot Project setup and Layered Architecture Introduction
+Introduction to Maven and its Lifecycle | Spring boot Maven project
+Spring boot: Bean and its Lifecycle | Inversion of Control (IOC)
+Spring boot Annotations (Controller Layer) | Controller, RestController etc
+Dependency Injection in Spring boot | With Advantages and Disadvantages
+Spring boot : Bean Scopes | Singleton, Prototype, Request, Session Scopes
+Spring boot: Dynamically Initialized Beans | Value Annotation
+Spring boot @ConditionalOnProperty Annotation
+Spring boot @Profile annotation | How Profiling works in Spring boot
+Spring boot AOP (Aspect Oriented Programming)
+Spring boot @Transactional Annotation - Part1
+Transactional Annotation Part2 | Declarative, Programmatic Approach & Propagation
+Spring boot @Transactional Annotation - Part3 | Isolation Level and its types
+Spring boot @Async Annotation - Part1 | ThreadPoolExecutor
+@Async Annotation - Part2 | Async Annotation Important Interview questions
+Custom Interceptors | How to Intercept Incoming HTTP Request & Custom Annotation
+Filters vs Interceptors | Filters & Interceptors Advantage and Usecases for both
+Spring boot HATEOAS Restful API | Advantage, Disadvantage with Example
+Spring boot ResponseEntity & Response Codes | 1xx, 2xx, 3xx, 4xx and 5xx Codes
+Spring boot Exception Handling
+Spring boot: JPA (PART-1)
+Spring boot: JPA | JPA Setup, Architecture and Entity Relationship
+Spring boot: JPA | First Level Caching
+Spring boot: JPA | Second Level Caching
+Spring boot: JPA | Map DTO to Table
+Spring boot: JPA | OneToOne Mapping Unidirectional and Bidirectional
+Spring boot: JPA | OneToMany, ManyToOne and ManyToMany
+Spring boot: JPA | JPQL, Derived Query, N+1 Problem, Joins, Pagination
+Spring boot: JPA | Native Query and Criteria API
+Spring boot: JPA | Specification API
+Attacks with Demo | Spring Security | CSRF, CORS, XSS, SQL Injection
+Spring Boot Security - Part1 | Architecture
+Spring Boot Security - Part2 | User Creation & Storing Username & Password
+Spring Boot Security - Part3 | Form Based Authentication
+Spring Boot Security - Part4 | Basic Authentication
+Spring Boot Security : What is JWT and its Structure
+Spring Boot Security - JWT Authentication Implementation
+What is OAuth 2.0: Explained
+Spring Boot Security - OAUTH2 Authentication Implementation
+Spring Boot Security - Method Security | Role based Authorization
+
+RestTemplate | Communication between Microservices
+RestClient | Communication between Microservices
+FeignClient in Spring Boot Microservices | Declarative HTTP Client
+Service Discovery and its Implementation
+Client Side Load Balancer and its Implementation
+Rate Limiter
+Bulkhead Pattern
+Retry Pattern
+Circuit Breaker
+ApiGateway in Microservices - Part1 | Routing and Load Balancing
+ApiGateway in Microservices - Part2 | Authentication JWT, Circuit Breaker etc
+Central Configuration
+Actuator
+ConfigurationProperties in-depth
