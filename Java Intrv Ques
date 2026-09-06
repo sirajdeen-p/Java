@@ -1,0 +1,49 @@
+JAVA TOPICS:
+OOPs Fundamentals | 4 Pillar of Java
+How Java Program Works and its 3 Important Components (JVM, JRE and JDK)
+Quiz Question: Why only 1 Public Class in JAVA file
+Java Variables - Part1 | Primitive Data Types in Depth
+How FLOAT and DOUBLE Number Stored in Memory? | IEEE 754 Representation
+Java Variables - Part2 | Reference/Non-Primitive Data Types in Depth
+Java Methods in Depth | Different Types of Methods with Examples
+Java Constructor in Depth | Different Types of Constructor with Examples
+Java Memory Management and Garbage Collection in Depth
+Java Classes - Part1 | Nested, Concrete, Abstract, Object, Super & Sub Classes
+Java Generic Classes | Java Classes in Depth - Part2
+Java Enum, POJO and Final Classes Explained with Examples | Java Classes - Part3
+Java Singleton & Immutable Class Explained with Examples | Java Classes - Part4
+Java Interface in Depth - Part1
+Default, Static & Private Method in Interface - Java Interfaces Part-2
+Functional Interface and Lambda Expression - Java8 | Java Interface Part3
+Java Reflection in Depth (Using Examples)
+Java Annotations with Examples
+Exception Handling in Java with Examples
+Operators in Java | Different Types of Operators in JAVA
+Control Flow Statements in Java | Decision Making, Looping & Branching Statement
+Collections in Java - Part1 | Java Collections Framework in depth
+Collections in Java - Part2 | Comparator Vs Comparable | PriorityQueue
+Collections in Java - Part3 | Deque and List in Depth
+Collections in Java - Part4 | HashMap Internal Working in Java
+Collections in Java - Part5 | LinkedHashMap and TreeMap in depth
+Collections in Java - Part6 | SET
+Streams in Java8 | Collections in Java - Part7
+Multithreading and Concurrency in Java: Part1
+Thread Creation, Thread Lifecycle and Inter-Thread Communication
+Thread Joining, Daemon Thread, Thread Priority | Multithreading in Java
+Locks and Condition | Java Multithreading
+Lock-Free Concurrency | Compare-and-Swap
+Thread Pools in Java | ThreadPoolExecutor Framework | Multithreading
+Java8 CompletableFuture | Future & Callable in Java
+ForkJoinPool, WorkStealingPool, FixedThreadPool, CachedThreadPool & SingleThread
+Java ScheduledThreadPoolExecutor || Shutdown Vs AwaitTermination
+Java VirtualThreads vs Normal Threads || ThreadLocal in Java
+Project Lombok in Java in depth | Lombok top 10 features
+Java 21 : SequencedCollection, SequencedSet and SequencedMap
+Java 17: Sealed Classes and Interfaces
+Java 14: Switch Expressions Deep Dive
+Java 16: Pattern Matching for instanceof
+Java 21: Pattern Matching for switch
+Java 16: Record class
+Java 15: Text Blocks
+Java Optional from Java 8 to 11
+Java Traditional File Handling | InputStream, OutputStream, Reader and Writer
