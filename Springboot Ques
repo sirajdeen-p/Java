@@ -1,0 +1,51 @@
+//Springboot
+What is Spring Boot?
+Difference between Spring and Spring Boot
+Spring Boot Version you used and its features
+What are the advantages of using Spring Boot?
+How does Spring Boot reduce boilerplate configuration?
+@SpringBootApplication – What it does?
+@Component, @Service, @Repository, @Controller, @RestController
+@Autowired, @Qualifier, @Primary
+@Configuration, @Bean, @Value, @PropertySource
+@EnableAutoConfiguration, @ComponentScan
+Spring Security:
+@EnableWebSecurity, @PreAuthorize, @Secured, @RolesAllowed
+@RequestMapping, @GetMapping, @PostMapping, @PutMapping, @DeleteMapping
+@RequestBody, @RequestParam, @PathVariable
+@ResponseBody, ResponseEntity<>, @ExceptionHandler, @ControllerAdvice
+@Entity, @Table, @Id, @GeneratedValue, @Column, @OneToMany, @ManyToOne, @JoinColumn
+What is IoC (Inversion of Control) and DI (Dependency Injection)?
+Layers in Spring Boot: Controller, Service, Repository
+What is a Bean? How is it created and managed? @postConstructor @PreDestroy
+What is Spring Data JPA? What is Hibernate?
+Difference between Hibernate and JPA
+Difference between JPA and JDBC
+How to configure a datasource in Spring Boot?
+How to use CrudRepository, JpaRepository, PagingAndSortingRepository?
+Custom query methods using @Query
+Fetch type (LAZY vs EAGER) in @OneToMany and @ManyToOne
+Cascading operations in relationships
+How to create a REST API in Spring Boot?
+Difference between @Controller and @RestController
+Use of ResponseEntity<> vs @ResponseBody 
+Exception handling using @ControllerAdvice
+HTTP status codes (200, 400, 500)
+@Valid, @NotNull, @NotBlank, @Size, @Email, etc.
+How to validate request body?
+What is Spring Boot Starter?
+What is Spring Boot Auto-configuration?
+How to create custom starter?
+How to externalize configuration with application.properties or application.yml
+How to secure endpoints with Spring Security?
+Basic Authentication vs JWT
+How to allow public endpoints and secure others?
+How do you handle exceptions globally?
+How do you write unit tests for controller/service layers?
+What is Actuator in Spring Boot?
+What is DevTools in Spring Boot
+What is Spring Boot CLI?
+Profiles: @Profile, application-dev.properties, etc:::: activate Profile in properities->(spring.profiles.active=dev)
+How do you implement pagination and sorting in REST APIs? ::: page,size,sort GET /users?page=0&size=10&sortBy=name
+How do you consume external REST APIs using RestTemplate or WebClient? by using URL or by webclient
+What is CORS and how do you handle it in Spring Boot? if diff port tries to hit the DB it will be Blcoked 
