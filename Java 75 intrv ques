@@ -1,0 +1,86 @@
+/Java
+Tell me about yourself.
+Which Java version are you using? Why?
+Difference between JDK, JRE, and JVM
+Why is Java platform-independent?
+Why is Java not 100% object-oriented?
+Why is String immutable in Java?
+Difference between primitive and wrapper classes
+Autoboxing and unboxing
+Difference between == and .equals()
+hashCode() vs equals()
+Key features of Java 8
+Key features of Java 17
+Java 8 vs Java 17 – What has improved?
+What is a functional interface?
+Examples: Predicate, Consumer, Supplier, Function, BiFunction, Comparator with examples
+What is a lambda expression?
+What are method references?
+Use of Optional class
+What is an object in Java?
+Constructors and types
+What is inheritance? Types?
+What is encapsulation? How to achieve it?
+What is abstraction? Abstract class vs Interface
+Interface: Features, default & static methods
+What is polymorphism? Compile-time vs Runtime
+Method overloading vs overriding
+Access modifiers
+Use of final, static, this, and super
+What is a sealed class? (Java 17)
+List vs Set vs Map
+HashMap vs TreeMap vs LinkedHashMap
+HashSet vs TreeSet
+ArrayList vs LinkedList
+How HashMap works internally?
+Fail-fast vs fail-safe iterators
+Comparable vs Comparator
+What is Stream API?
+Intermediate vs Terminal operations
+map(), filter(), collect(), flatMap(), reduce(), sorted()
+Parallel streams frkJoinPool:commonPool
+Performance benefits or caveats
+Thread lifecycle
+Thread class vs Runnable interface
+ExecutorService and thread pools
+Callable vs Runnable
+Daemon vs User threads
+Thread synchronization
+Locks in Java: ReentrantLock, synchronized
+Deadlock and how to avoid it
+What is volatile keyword?
+wait(), notify(), notifyAll()
+CompletableFuture – Usage and advantages
+Future vs CompletableFuture
+Checked vs Unchecked exceptions
+Custom exceptions
+Try-with-resources (Java 7+)
+Difference between throw and throws
+finally vs final vs finalize
+Reading and writing files using File, BufferedReader, Scanner, Files
+Serialization & Deserialization
+Transient keyword
+Heap vs Stack memory
+How Garbage Collection works?
+Minor GC vs Major GC
+What are memory leaks in Java?
+Strong vs Weak references
+Explain SOLID principles with Java examples
+Common Design Patterns: Singleton, Factory, Builder, Strategy, Observer, etc.
+When to use which pattern?
+Reflection API
+Annotations: Built-in and custom
+Java Modules (introduced in Java 9)
+Records (Java 14+)
+Var keyword (Java 10)
+Generics
+
+Basic Prg:
+Fibonacci
+prime num
+palindrome or not
+* triangle pattern
+sorting
+remoiving duplicate
+swap without temp variable
+matrix multiple
