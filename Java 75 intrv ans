@@ -1,0 +1,277 @@
+1.Which Java version are you using? Why?
+	* Starting from base class i have worked Java1.6, java1.8 and Java 17
+	
+2.Difference between JDK, JRE, and JVM
+	JDK - Java development Kit    	 - it is a runTime engine where inside it have JRE AND JVM (have compiler / debugger )
+	JRE - Java Run Time Environment	 - it have core libarary/Jars nd supporting files which have to run
+	JVM - Java virtual machine		 - Jvm will converts byte code into machine code and execute program.JVM will handles the memory/garbage collections
+	
+3.Why is Java platform-independent?
+	Because java dosent depend on any hardware or software OS - JVM only needed to run JVM used to run on mac / linux / windows 
+	
+4.Why is Java not 100% object-oriented?
+	Beacuse it supports Primitive DataTypes int,float,byte so it is not 100% object-oriented
+	
+5.Why is String immutable in Java?
+	Once String Object is created it value cannot be changed.. Only ref Chnaged eg file path/security 
+	once the String is created it cannot be overridden only the ref will be overridden
+	if we crate a string it will be stored in the string literal pool where one obj will be created and one ref will be cretaed
+	and the user is create another string with saame valuebale then a new ref will be create and no new string objectr will be creatred 
+	so in java stringis immnutable 
+	
+6.Difference between primitive and wrapper classes
+	primitive - int,float,byte
+	wrapper   - Integer,String,Double
+	
+7.Autoboxing and unboxing
+	converting primitive to wrapper | converting wrapper  to primitive
+	Integer x = 100;  // autoboxing
+	int y = x;        // unboxing
+	
+8.Difference between == and .equals()
+	== compares reference
+	.equals compares content	
+	
+9.hashCode() vs equals()
+	equals() compares the Object type - Content
+	hashTable,hashMap,HashTable using the Hasing integer Techinque so when we Override the equals() need to Override hashCode()
+	
+	if two obj are same then the hash should be same
+	if two obj hash are same doesnt meant that two obj are equal
+	
+10.Key features of Java 8
+	Functional Interface - static and default method
+	Optional Class 
+	Stream Api
+	forEach()
+	method Reference
+	new Date Time -     LocalDate date = LocalDate.now(); System.out.println(date);
+	
+11.Functional Interface
+	one Abstract method will be there and n num of static and default method 
+	
+	public class MyClass {
+		public static void main(String args[]) {
+
+			//one way of creating Obj
+			Func obj = ()-> {};
+			Func.testStatic();
+			obj.testDefault();
+
+			//sec way of creating Obj
+			A obj1 = new A();
+			obj1.test();
+			Func.testStatic();
+			obj1.testDefault();
+
+		}
+	}
+
+	class A implements  Func {
+		@Override
+		public void test() {
+			System.out.println("test");
+		}
+	}
+
+	interface Func {
+		abstract void test();
+
+		static void testStatic() {
+			System.out.println("testStatic");
+		}
+
+		default void testDefault() {
+			System.out.println("testDefault");
+		}
+	}
+	
+	
+12.Optional Class
+	main purpose is to avoid NullPointerException and make the handling of missing values explicit.
+	
+13.Stream Api 
+	source 		 -> Stream()
+	
+	Intermidaite -> filter() map() flatMap() distinct() sorted() limit() skip()
+		
+	Terminal	 -> forEach() collect() reduce() count() findFirst() anyMatch() allMatch() noneMatch()
+	
+	
+14.What is an object in Java?
+	Object class is the root class of all Java classes
+	we can create obj using new Keywords by using obj ref we can call methods in the Class
+
+15.Constructor and types
+	Default → Compiler provides if no constructor is written
+	No-arg → 0 parameters
+	Parameterized → Takes parameters
+	
+16.What is inheritance? Types?
+	One class Extends by another class called Inheritance
+	
+	Single  	 - One parent → one child.
+	Multilevel   - Parent → Child → Grandchild.
+	Hierarchical - One parent → multiple children.
+	
+	Java does not support multiple inheritance through classes instead need to use the Interface
+	
+17.What is encapsulation? How to achieve it?
+	Encapsulation = Data hiding + controlled access
+	mainly achieve encapsulation by:
+	1. Making variables private
+	2. Providing public getter and setter methods to access/update them
+	
+18.What is abstraction? Abstract class vs Interface
+	process of hiding implementation details and exposing only the essential functionality.
+	abstract class can contain both abstract and concrete methods, instance variables, and constructors
+	class      → extends
+	interface  → implements
+	Abstract class → CAN have constructor 
+	Interface      → CANNOT have constructor
+
+19.What is polymorphism? Compile-time vs Runtime
+	Method OverLoading or Compile Time Polymorpishm:
+		method OverLoading has same class name with same method name with diff params
+		
+	Method OverRiding or Run Time Polymorpishm:
+		 method OverRiding has same method names with diff class names need to extends the Class and need to Override it
+
+	Method OverLoading:
+
+	class Calc{
+		public void add(int a,int b){
+			System.out.println(a+b);
+		}
+		
+		 public void add(int a,int b,int c){
+			System.out.println(a+b+c);
+		}
+	}
+
+	public class Main{
+		public static void main(String args[]){
+			
+			Calc obj = new Calc();
+			obj.add(10,10);
+			obj.add(10,10,10);
+			
+	Method OverRiding:
+	class Shape{
+		public void draw(){
+			System.out.println("Shape is drawn");
+		}
+	}
+
+	class Rectangle extends Shape{
+	  // @Override
+		public void draw(){
+			System.out.println("Rectangle is drawn");
+		}
+	}
+
+
+	public class Main{
+		public static void main(String args[]){
+		
+		Shape s = new Shape();
+		s.draw();
+		
+		Shape r = new Rectangle();
+		r.draw();
+
+20.Use of final, static, this, and super
+	final:
+	variable - decalred as constant value cannt be override
+	method   - cannot be override
+	class 	 - cannot be inherit 
+	
+	| Keyword    | What It Refers To / Does       | Usage Example            | Key Notes / Memory Tip                                                         |
+	| ---------- | ------------------------------ | ------------------------ | ------------------------------------------------------------------------------ |
+	| **final**  | Constant, unchangeable         | `final int x = 10;`      | Cannot change variable, override method, or inherit class. Think **“frozen”**. |
+	|            | Method cannot be overridden    | `final void show() {}`   | Protects method from being modified in subclasses.                             |
+	|            | Class cannot be subclassed     | `final class A {}`       | Prevents inheritance.                                                          |
+
+	| **static** | Belongs to class, not instance | `static int count = 0;`  | Shared across all objects. Think **“one per class”**.                          |
+	|            | Static method                  | `static void greet() {}` | Can call without creating object.                                              |
+	|            | Static block                   | `static { … }`           | Runs once when class loads.                                                    |
+
+	| **this**   | Refers to current object       | `this.x = x;`            | Access instance variables or constructors. Think **“me, the current object”**. |
+	|            | Call another constructor       | `this(10);`              | Useful for constructor chaining.                                               |
+	|            | Pass current object            | `display(this);`         | Often used to pass object reference.                                           |
+
+	| **super**  | Refers to parent class         | `super.x`                | Access parent class field. Think **“above me”**.                               |
+	|            | Call parent method             | `super.display();`       | Can call overridden method of parent.                                          |
+	|            | Call parent constructor 1st    | `super(100);`            | Must be first line in constructor.                                             |
+	
+21.JAVA 17 Feature:
+	sealed class
+	Records
+	pattern matching switch 
+		switch (obj) {
+			case Integer i -> System.out.println(i);
+			case String  s -> System.out.println(s);
+			default -> {}
+		}
+
+	SEALED CLASS : ARE NEED TO BE PERMITS THE CLASS WHICH ARE NEEED TO BE EXTEND
+
+	sealed class A permits B,C {
+		
+		void test(){
+			System.out.print("Message");
+		}
+	}
+
+	final class B extends A{
+		
+	}
+
+	non-sealed class C extends A{
+		
+	}
+
+	public class Main
+	{
+		public static void main(String[] args) {
+		
+			B obj = new B();
+			obj.test();
+			
+		}
+		
+	}
+
+	Record:
+	record Person(String name, int age) {
+		
+	}
+
+	public class Main
+	{
+		public static void main(String[] args) {
+			Person obj = new Person("siraj",25);
+			System.out.println(obj.name());
+			
+		}
+		
+		
+22.Predicate, Consumer, Supplier, Function, BiFunction, Comparator with examples
+	From java.util.function:
+
+	Predicate<T>    → returns boolean 				test()
+	Function<T, R>  → takes input, returns output   apply()
+	Consumer<T> 	→ takes input, no return 	    accept()
+	Supplier<T> 	→ returns value, no input 		get()
+
+	Predicate<String> t = s -> s.equals("test");
+	System.out.println(t.test("test"));
+	
+	Function<String,String> func = s -> s + "hi";
+	System.out.println(func.apply("test "));
+	
+	Consumer<Integer> con = s -> System.out.println(s);
+	con.accept(12345);
+	
+	Supplier<Double> sup = () -> Math.random();
+	System.out.println(sup.get());
