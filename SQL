@@ -1,0 +1,25 @@
+select * from employee order by id
+
+alter table employee add constraint salary check(salary > 1)
+
+update employee set name = 'siraj' where id  = 1
+
+insert into employee(name,age,company,salary) values('banana',24,'Infosys',45000)
+
+select name , count(*) from employee a group by name having count(*) > 1
+
+select * from employee order by salary desc offset 0
+
+select sum(salary) from employee
+
+select * from test join test2 on test.id = test2.id 
+
+SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
+
+
+
+
+
+
+
+
