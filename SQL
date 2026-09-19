@@ -1,5 +1,14 @@
 select * from employee order by id
 
+CREATE TABLE employee (
+    id INT PRIMARY KEY,                       -- Cannot be null, must be unique
+    name VARCHAR(50) NOT NULL,                -- Cannot be left blank
+    email VARCHAR(100) UNIQUE,                -- No duplicate emails allowed
+    age INT CHECK (age >= 18),                -- Must be 18 or older
+    company VARCHAR(50) DEFAULT 'Infosys',    -- Defaults to Infosys if omitted
+    salary DECIMAL(10,2) NOT NULL
+);
+
 alter table employee add constraint salary check(salary > 1)
 
 update employee set name = 'siraj' where id  = 1
