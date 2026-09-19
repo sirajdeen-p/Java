@@ -1,4 +1,4 @@
-select * from employee order by id
+CREATE DATABASE employee;
 
 CREATE TABLE employee (
     id INT PRIMARY KEY,                       -- Cannot be null, must be unique
@@ -9,11 +9,13 @@ CREATE TABLE employee (
     salary DECIMAL(10,2) NOT NULL
 );
 
-alter table employee add constraint salary check(salary > 1)
+insert into employee(name,age,company,salary) values('banana',24,'Infosys',45000)
 
 update employee set name = 'siraj' where id  = 1
 
-insert into employee(name,age,company,salary) values('banana',24,'Infosys',45000)
+alter table employee add constraint salary check(salary > 1)
+
+select * from employee order by id
 
 select name , count(*) from employee a group by name having count(*) > 1
 
@@ -24,11 +26,4 @@ select sum(salary) from employee
 select * from test join test2 on test.id = test2.id 
 
 SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
-
-
-
-
-
-
-
 
