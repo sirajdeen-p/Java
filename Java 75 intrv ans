@@ -19,6 +19,10 @@
 	and the user is create another string with saame valuebale then a new ref will be create and no new string objectr will be creatred 
 	so in java stringis immnutable 
 	
+	STRING LITERAL:
+	stack - store variable
+	heap  - stores objects
+	
 6.Difference between primitive and wrapper classes
 	primitive - int,float,byte
 	wrapper   - Integer,String,Double
@@ -85,6 +89,91 @@
 			System.out.println("testDefault");
 		}
 	}
+	
+	import java.util.*;
+
+		public class Main
+		{
+			public static void main(String[] args) {
+			
+			
+			B obj = new B();
+			obj.test();
+			
+			
+			}
+		}
+
+
+		interface A{
+			
+			void test();
+			
+		}
+
+
+		class B implements A{
+			
+			@Override
+			public void test(){
+				 System.out.print("B impl");
+			 };
+			
+			
+		}
+
+import java.util.*;
+
+		public class Main
+		{
+			public static void main(String[] args) {
+			
+			
+			A obj = ()-> {
+				
+				return "A";
+			};
+			
+			String r = obj.test(); System.out.println(r);
+			
+			String b = obj.methoTest(); System.out.println(b);
+			
+			String c = A.staticMethod(); System.out.println(c);
+			
+			
+			B obj1 = new B();
+
+			System.out.println(obj1.test()); System.out.println(obj1.methoTest()); System.out.println(A.staticMethod());
+			
+			}
+		}
+
+
+		@FunctionalInterface
+		interface A{
+			
+			 String test();
+			 
+			 default String methoTest(){
+				 return "defaultTest";
+			 }
+			 
+			static String staticMethod(){
+				 return "staticMethod";
+			 }
+			
+		}
+
+		class B implements A{
+			
+			 public String test(){
+				 return "B impl";
+			 };
+			
+		}
+
+
+
 	
 	
 12.Optional Class
@@ -275,3 +364,354 @@
 	
 	Supplier<Double> sup = () -> Math.random();
 	System.out.println(sup.get());
+
+23.List vs Set vs Map
+	List:
+		- Duplicate values are allowed
+		- Maintains insertion order
+		- We can access elements using index: .get(0)
+		- ArrayList and LinkedList are common implementations
+
+	Set:
+		- Duplicate values are NOT allowed
+		- HashSet      → No guaranteed order
+		- LinkedHashSet → Maintains insertion order
+		- TreeSet      → Stores elements in sorted order
+		- No index-based access like .get(0)
+
+	Map:
+		- Stores data as key-value pairs
+		- Keys must be unique
+		- Duplicate values are allowed
+		- HashMap allows one null key and multiple null values
+		
+24.INTERNAL WORKING OF HASHMAP:
+
+	hashmap - key, Value
+	time comp - O(1)
+	linkedlist changed to Balanced Tree after Java8
+
+	bucket - Arrays of nodes 0 to 15 [Hash, key, value, next]
+	initial capacity - 16
+	load factor - 0.75 threshold if reaches 12 it will double the size
+	hashing steps:
+		1.Keys to HashCode[hashFunction]
+		2.HashCode to index [module by capacity - 1]
+
+	HashCollison: whenver the key produce the same Key then collison will occurs so the next will used to store the key,Value	
+	there is only 15 buckets were the keys will be stored in next -> next and equals will be used to retrive the key value
+		
+25.Garbage Collection
+	Heap - young gen - Eden - surviour - surviour - Old Gen
+
+	heap is divided into two young gen and old so crete new obj are been stored in the young first and 
+	it has lost long and have scope then it will be moved to the old gen Gc will check the young first 
+	and if it is going to fill then it will celar it afte that it wilcheck the old where youn is fatster 
+	comaring to the older
+	
+26.Heap vs Stack memory
+		heap  - Objects stack - variable
+		
+27.Generics
+	- we dont need to mention the Types in Constructor
+
+	import java.util.*;
+	public class Main
+	{
+		public static void main(String[] args) {
+			System.out.println("Hello World");
+			
+			GenericsTest obj = new GenericsTest("Siraj",1);
+			obj.print();
+			
+		}
+	}
+
+	class GenericsTest<S,I>{
+		private  S name;
+		private  I id;
+		
+		GenericsTest(S name,I id){
+			this.name = name;
+			this.id = id;
+		}
+		
+		public void print(){
+			System.out.println(name);
+			System.out.println(id);
+		}
+	}
+	
+28.Serializable and deSerializable
+	- process of converting java Objects into Byte stream then it is called Serializable ex txt file
+	- process of converting Byte stream into java Objects then it is called DeSerializable ex txt file
+	- it have id when deSerializable happeing java will compare the two ids and if that true then deserialization is allowed or InvalidClassExceptuon occurs
+	
+	
+	import java.io.*;
+	class Person implements Serializable {
+		String name;
+		transient int age;
+
+		Person(String name, int age) {
+			this.name = name;
+			this.age = age;
+		}
+	}
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+
+        Person p = new Person("Siraj", 25);
+
+        // ====================
+        // SERIALIZATION
+        // ====================
+
+        ByteArrayOutputStream byteArray =
+            new ByteArrayOutputStream();
+
+        ObjectOutputStream out =
+            new ObjectOutputStream(byteArray);
+
+        out.writeObject(p);
+        out.close();
+
+        byte[] data = byteArray.toByteArray();
+
+        System.out.println("Before serialization:");
+        System.out.println("Name: " + p.name);
+        System.out.println("Age: " + p.age);
+
+        System.out.println("\nSerialized successfully!");
+        System.out.println("Bytes: " + data.length);
+
+
+        // ====================
+        // DESERIALIZATION
+        // ====================
+
+        ByteArrayInputStream byteInput =
+            new ByteArrayInputStream(data);
+
+        ObjectInputStream in =
+            new ObjectInputStream(byteInput);
+
+        Person p2 = (Person) in.readObject();
+
+        in.close();
+
+        System.out.println("\nAfter deserialization:");
+        System.out.println("Name: " + p2.name);
+        System.out.println("Age: " + p2.age);
+    }
+}
+
+29.transient Keyword	
+	- when filed is marked as transient  then serialization cannot be happen instead def values will be passed
+	- we need to re feed the field
+	
+30.Fail-fast vs fail-safe iterators
+	- fail-fast will throw exception when we are modififying the list 
+	- fail-safe will not throw exception when we are modififying the list  ex: CopyOnWriteArrayList or ConcurrentHashMap
+	
+	 CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
+
+        list.add("A");
+        list.add("B");
+        list.add("C");
+        list.add("D");
+
+        for (String s : list) {
+            if (s.equals("B")) {
+                list.remove(s); 
+            }
+        }
+          System.out.println(list);
+
+    ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();
+
+            map.put("A", 1);
+            map.put("B", 2);
+            map.put("C", 3);
+
+            for (String key : map.keySet()) {
+                if (key.equals("B")) {
+                    map.remove(key);
+                }
+            }
+
+            System.out.println(map);
+
+31.Comparable vs Comparator
+	- Comparable is natural Order Sorting if we implements Comparable then we can use for Sorting
+	- Comparator has unOrdered sorting have comparator.comparing
+	
+	comparable
+	- it implemts comparable Interface
+	- natural order it wont ask how need to sort initally asc
+	- compareTo()
+
+	comparator
+	- it dont need impl comparable Interface
+	- it will ask how to sort natural or desc
+	- compare()
+	- if conditons we can use for asc or desc sorting techinque
+	
+32.Parallel streams frkJoinPool:commonPool
+	- Splits the work and processes parts in multiple threads.
+			
+			 parallelStream()
+				   ↓
+			Split the data
+				   ↓
+			 ┌─────┼─────┐
+			 ↓     ↓     ↓
+			Task  Task  Task
+			 ↓     ↓     ↓
+			ForkJoinPool.commonPool
+				   ↓
+			Multiple worker threads
+			
+33.MULTITHREADING
+
+	New → Runnable → Running → Waiting/Blocked → Terminated
+
+	Process - whenever a program is executed process is created
+	
+	Thread  - one process has multiple thread and thread is also a small process 
+	
+	multitasking = task1,2 cannot share the resources
+
+	multithreading - it will share the resourecs heap,datasegmenet,code segmentt,stack
+	
+	by  using Thread calss and by Runnable Interface (run abstract method)
+	
+	demonThread - if the JVM finds the main thread is Stopped then the demonThread excution will be Stopped
+	
+	synchronized block - only the block will be locked 
+	
+	synchronized method - whole method will be locked 
+	
+	runnable - dont have return type
+	
+	callable - have return type
+	
+	Extends Thread Class:
+	import java.util.*;
+
+	public class Main
+	{
+		public static void main(String[] args) {
+		
+		A t1 = new A();
+		t1.run();
+		
+		System.out.println(t1);
+		
+		}
+	}
+
+	class A extends Thread{
+		
+		@Override
+		public void run(){
+			System.out.print("Thread is running");
+		}
+		
+	}
+	
+	Using Runnbale Interface:
+	import java.util.*;
+	public class Main
+	{
+		public static void main(String[] args) {
+		
+		A t1 = new A();
+		t1.run();
+		
+		System.out.println(t1);
+		
+		}
+	}
+
+	class A implements Runnable{
+		
+		@Override
+		public void run(){
+			System.out.print("Thread is running");
+		}
+		
+	}
+	
+	ForkJoinPool : big task can be forked into smaller tasks:
+	import java.util.concurrent.*;
+	public class Main {
+
+		public static void main(String[] args) {
+
+			ForkJoinPool pool = new ForkJoinPool(5);
+
+			for (int i = 0; i < 20; i++) {
+				int taskNumber = i;
+				pool.submit(() -> {
+					System.out.println("Task " + taskNumber + " -> " + Thread.currentThread().getName() );
+
+				}).join();
+			}
+
+		   pool.shutdown();
+		}
+	}
+	
+	
+	
+34.Executor 
+	* Executor is an Interface which implements Exceutor Service , ForkjoinPool, ThreadPoolExcutor, ScheduledExcutorService, ScheduledThreadPoolExcutor
+	* ThreadPoolExcutor will have constructor of 
+		ThreadPoolExecutor(
+			int corePoolSize,
+			int maximumPoolSize,
+			long keepAliveTime,
+			TimeUnit unit,
+			BlockingQueue<Runnable> workQueue
+		)
+	* ThreadPoolExcutor will have minPoolsixe, maxPoolSize, Queue.. if the min is 3 and max is 5 then the t1,t2,t3 are assigned and the t4,t5 are waiting in the queue
+	* if t6,t7 is came then the t4,t5 is assigened and running and if t8 is came then it will be rejected
+	* .submit()->{} and .shutdown()
+	
+	ExecutorService extends Executor
+	ThreadPoolExecutor implements ExecutorService
+	ForkJoinPool implements ExecutorService
+	ScheduledExecutorService extends ExecutorService
+	ScheduledThreadPoolExecutor extends ThreadPoolExecutor and implements ScheduledExecutorService
+	
+35.Future	
+	* we are not able to know the status of the Executor submit so by Future we can see the status 
+	* return type of submit is Future
+	* Interface we can know the result of async task
+	* cancel(), isCancelled(), isDone(), get(), get(long timeout,TimeUnit unit)
+	
+36.Completable Future
+	* intro in java 8 - adavnce of Future
+	* provides chaining
+	* Future is interface -> child is Completable Future
+	* if we not proving and Excutor Pool it will use the default ForkjoinPool
+	* thenApply() - used after the supplyAsync() same thread used 
+	* thenApplyAsync() - new thread used out of executor ForkjoinPool
+	* thenCompose() - need order use this same thread used 
+	* thenComposeAsync() - need order use this executor ForkjoinPool
+	* thenCombine / thenCombineAsync - used to combine two thread
+	
+37.Factory exectior service
+	* ExecutorService es = Executors.newfixedPool(5);
+	
+38.Virtual thread 
+	* jvm can create multiple VT and only when needed it will link to OS thread - java 19
+	* normal thread is dirctly linked to os 
+	
+39.Error 
+	Error generally represents a serious problem involving the JVM or runtime environment that an application normally shouldn't try to recover from.
+	JVM/runtime problem
+	OutOfMemoryError | StackOverflowError 
+	
