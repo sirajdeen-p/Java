@@ -1,0 +1,96 @@
+	
+			
+AWS:
+	S3 bucket - storage and we can upload files,img,app,folder
+		AWS Region 
+		bucket type - general nd directory
+		bucket name 
+		object ownership - ACL OWNERSHIP enable / disable
+		block public access
+		bucket versioning
+		Encryption type - sse-s3
+		object lock
+		
+	AWS SDK - Software Development Kit
+		local -> AWS SDK - Software Development Kit -> S3 Client - Bucket
+	
+	AWS EC2 - Elastic compute cloud - Computer
+		virtual servers - called instances - scale vertical / horizontal - pay oly for use
+		1.AMI - Amazon machine image [OS - linux,window,ubuntu or custom]
+		2.Instance type - t2.micro 1cpu /nano /medium /small/ large
+			T,M,C,D - series
+		3.key - pair [SSH] - use file type password
+			RSA / ED25519
+			.pem - mac - open SSH
+			.ppk - window using putty
+		4.Security Group 
+			allow SSH traffic 
+			custom ip or global public
+			
+	AWS Lambda
+		is a serverless compute service
+		we dont manage servers
+		Lambda automatically scale and run on it demands
+		only pay for execution timing req
+		
+	Lamda
+	ECS
+	CICD
+	CloudFormations
+	rds postgres
+	restapi entitlement
+	apigee
+	load balance
+	apigateway
+	
+	Lambda          → RUN CODE
+	ECS             → RUN CONTAINERS
+	ECR             → STORE CONTAINERS/IMAGES
+	RDS PostgreSQL  → STORE DATA
+	API Gateway     → EXPOSE/MANAGE AWS APIs
+	Apigee          → API MANAGEMENT
+	Load Balancer   → DISTRIBUTE TRAFFIC
+	CloudFormation  → CREATE INFRASTRUCTURE
+	CI/CD           → BUILD + TEST + DEPLOY
+	Entitlement     → CHECK ACCESS
+	Secrets Manager → DB passwords/API secrets
+	IAM             → Permissions
+	CloudWatch      → Logs + Monitoring
+	
+CloudFormations
+	- instead of manuall creation we can use Template 
+	- it can mange all Services
+		Compute    -  EC2,Lambda
+		Storage    -  S3, EBS
+		Networking -  VPC
+		Management Goverance - CloudFormations CloudWatch
+		
+		Steps:
+			1.template - YAML /JSON
+			2.upload 
+			3.create stack / update stack / delete stack / rollback on failure service
+			4.AWS create resources in correct Order [IAM ROLE - EC2 - S3]
+			5.Update / delete Stack - Forgate Task
+			
+		Create Stack:
+			Cloud formation - Stack - Create Stack:
+			parameter - Key Pair | Instance Type - t2.micro nano | Location
+			Mappings  - Region for IP - AMI Region Specific
+			Resources - Ec2 | security Group - ports 
+			Output    - new Stack | Results | Instance
+			
+			
+		Status Cloud Formations:                                     
+			 CREATE_IN_PROGRESS           Stack/resource creation is in progress          
+			 CREATE_COMPLETE              Stack/resource created successfully             
+			 CREATE_FAILED                Creation failed                                 
+			 ROLLBACK_IN_PROGRESS         Creation failed, CloudFormation is rolling back 
+			 ROLLBACK_COMPLETE            Rollback completed                              
+			 UPDATE_IN_PROGRESS           Stack update is in progress                     
+			 UPDATE_COMPLETE              Update completed successfully                   
+			 UPDATE_FAILED                Update failed                                   
+			 UPDATE_ROLLBACK_IN_PROGRESS  Update failed and rollback started              
+			 UPDATE_ROLLBACK_COMPLETE     Update rollback completed                       
+			 DELETE_IN_PROGRESS           Stack deletion is in progress                   
+			 DELETE_COMPLETE              Stack deleted successfully                      
+			 DELETE_FAILED                Stack deletion failed                    
