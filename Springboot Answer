@@ -1,0 +1,358 @@
+1.what is SpringBoot
+	springboot is Framework which is build project on top of Spring
+	reduce Boiler Plant Java Coding
+	Objects are easy to Mangae
+	have embedded Tomcat Server 
+	no need for multiple Configiuration
+	
+2.Difference between Spring and Spring Boot
+	Spring we need initaite Object manually 
+	hava xml config for beans
+	
+3.Versions
+	Spring Boot: 3.2.5
+	Spring Data JPA: Database access and ORM
+	Spring Validation: Bean validation support
+	PostgreSQL: Database driver
+	Lombok: Code generation and reduction
+	JUnit 5: Testing framework
+	Gradle 8.x (wrapper included)
+	
+4.@SpringBootApplication – What it does?
+
+	SpringBoot Application starts	
+	1.start App (main method)
+	2.prepare env file applications/profiles/properties
+	3.create appliction Context(IOC Container)
+	4.Component Scan - sacn for @Component, @Service, @Repository @Controller - register them as a Bean
+	5.@EnableAutoConfiguration - it loads the config classes on classpath
+	6.@Autowired - Initalise Beans in setter , constructor and field
+	7.start tomcat Server
+	8.executes Runners if any CommonLineRunner and ApplicationRunner Beans
+	9.Publish events - applictionStaredEvent,applictionReadyEvent and @EventListener(eg: send a welcome email) method if any 
+	10.application is started
+
+	- it Trigger everything and starting point of SpringBoot App
+	- has run method 
+	- combinations of 2 annotations - @SpringBootConfiguration @EnableAutoConfiguration @ComponentScan
+	
+	@SpringBootConfiguration
+		- it Marks the class as the configuration class of the Spring Boot application.
+	
+	@EnableAutoConfiguration
+		- it will auto Config the Dependencies
+		
+	@ComponentScan
+		- it will scan for controller services repos and register as them Bean 
+		
+5.Annotatiosns 
+	
+	@Controller  → API / Request
+	@Service     → Business Logic
+	@Repository  → Database
+	@Component   → General-purpose Spring Bean
+	
+	@Component 
+		- it will create the Object for a class automatically and register in IOC container.. we can use it in another class to call the method
+		- Generic Spring-managed component
+	
+	@Service
+		- it will create the Object for a class automatically and register in IOC container
+		- it is a Business Layer 
+		
+	@Repository
+		- it is a DataBase Layer
+		
+	@Controller
+		- it receive http data and shown in the UI index.html
+		
+	@RestController
+		- it shows data in JSON format
+		
+	@AutoWired
+		- it will auto manage and create the Object and when needed we can use it in the class
+		
+		- constructor
+			 @Autowired
+			public TestController(TestService testService) {
+				this.testService = testService;
+			}
+		
+		- setter  
+			private TestService testService;
+			@Autowired
+			public void setTestService(TestService testService) {
+				this.testService = testService;
+			}
+		
+		- fields
+			 @Autowired
+			private TestService testService;
+			@GetMapping("/field")
+			public String fieldInjection() {
+				testService.test();
+				return "Field Injection";
+				}
+		
+	@Primary			
+		- if more than one class extends a class then primary we can give for obj creation - Default choice
+
+	@Qualifer("card or upi")
+		- if more than one primary found the qualifier will manage the obj - Specific choice
+		
+	@Configuration
+		- app Config will be there 
+		- Base Url Tokens
+	
+	@Bean 
+		- spring will create and manage Object on RunTime
+		- create a Bean for a class that you don't control, such as a third-party library class. ex: Object Mapper - can convert it to JSON:
+		- if we need to change the consturtor then bean can use by using Config class
+		
+	@Value("${app.name}")
+		- get the values from the application.properties Files and we can use in the variable param
+		- is normally used for Spring-managed fields, constructor parameters, or method/setter parameters, not as a local variable like that.
+		
+	@PropertySource 
+		- is used to load properties from a specified properties file into Spring's Environment. 
+		- In Spring Boot, application.properties and application.yml are loaded automatically
+		- is mainly useful for additional custom property files.
+		
+	@RequestMapping
+		- general mapping anotation
+		
+	@GetMapping
+		- request used to retrieve/read data.
+		
+	@PostMapping
+		- req used to create the data 
+		
+	@PutMapping
+		- req used to Update the data
+		
+	@PutMapping
+		- req used to paritially Update the data
+		
+	@DeleteMapping
+		- req used to delete the data
+		
+	@RequestParam
+		- used to get values from the query string. GET /user?name=Siraj&age=25
+		
+	@PathVariable
+		- Used when the value is part of the URL path. GET /user/101
+		
+	@RequestBody
+		- Used to get data from the HTTP request body POST /user Content-Type: application/json
+		
+	@ResponseBody
+		- value returned by this method and put it directly into the HTTP response body
+		- without @ResponseBody, a normal @Controller may treat the returned String as a view name.
+		- no need to annotatee spring will take care
+		
+	ResponseEntity<>
+		- returns the entire HTTP response codes 200 300 400 
+		- we can also send custom response desc in Body 
+		- @GetMapping("/user")
+			public ResponseEntity<String> getUser() {
+				return ResponseEntity
+						.ok()
+						.header("X-Application", "JavaProgram")
+						.body("User found");
+			}
+			
+	@ControllerAdvice 
+		- is used for global exception handling across multiple controllers and returns the custom Exception message
+		@RestControllerAdvice
+		public class GlobalExceptionHandler {
+
+			@ExceptionHandler(ArithmeticException.class)
+			public String handleArithmeticException(ArithmeticException ex) {
+
+				return "Cannot divide by zero";
+			}
+		}
+		
+	@ExceptionHandler 
+		- is used to handle an exception thrown by a controller.
+		@RestController
+		public class UserController {
+
+			@GetMapping("/user")
+			public String getUser() {
+
+				int a = 10 / 0;
+
+				return "Success";
+			}
+
+			@ExceptionHandler(ArithmeticException.class)
+			public String handleArithmeticException(ArithmeticException ex) {
+
+				return "Cannot divide by zero";
+			}
+		}
+					
+	IOC vs DI
+
+	IoC
+	→ Principle / design principle
+	→ Control of object creation and management is transferred
+	  from application code to Spring.
+
+	DI
+	→ Technique/design pattern used to implement IoC
+	→ Spring provides required dependencies to a class.
+
+	Spring IoC Container
+	→ Container responsible for creating and managing Spring Beans.
+	→ ApplicationContext is a commonly used Spring IoC container interface.
+
+	Traditional Spring:
+	→ Create beans.xml
+	→ Define beans using <bean>
+	→ Load using:
+
+	ApplicationContext context =
+		new ClassPathXmlApplicationContext("beans.xml");
+
+	Spring Boot:
+	→ No need to normally create beans.xml
+	→ Start application using:
+
+	SpringApplication.run(Application.class, args);
+
+	→ Spring creates ApplicationContext
+	→ Component scanning finds @Component, @Service,
+	  @Repository, @Controller, etc.
+	→ Spring creates and manages those objects as Beans
+	→ Spring performs Dependency Injection.
+			
+	HTTP Request
+		 │
+		 ▼
+	1. DNS / Load Balancer / API Gateway   [if used]
+		 │
+		 ▼
+	2. Web Server (Tomcat)
+		 │
+		 ▼
+	3. Servlet Filters
+		 │
+		 ├── CORS Filter
+		 ├── Logging Filter
+		 ├── Spring Security Filter Chain
+		 │      ├── JWT Authentication
+		 │      ├── Authentication
+		 │      └── Authorization
+		 │
+		 ▼
+	4. DispatcherServlet
+		 │
+		 ▼
+	5. Handler Mapping
+		 │
+		 │  Finds:
+		 │  @GetMapping("/users/{id}")
+		 │
+		 ▼
+	6. Handler Interceptor
+		 │
+		 └── preHandle()
+		 │
+		 ▼
+	7. Controller
+		 │
+		 ├── @PathVariable
+		 ├── @RequestParam
+		 ├── @RequestBody
+		 └── @PreAuthorize
+		 │
+		 ▼
+	8. Service
+		 │
+		 ▼
+	9. AOP / Proxies                    [if applicable]
+		 │
+		 ├── @Transactional
+		 ├── @Cacheable
+		 ├── @Aspect
+		 └── logging etc.
+		 │
+		 ▼
+	10. Repository
+		 │
+		 ▼
+	11. JPA / Hibernate
+		 │
+		 ▼
+	12. Database
+		 │
+		 ▼
+	Response
+		 │
+		 ▼
+	13. Exception Handling              [if exception]
+		 │
+		 └── @ExceptionHandler
+			 @ControllerAdvice
+		 │
+		 ▼
+	14. Interceptor postHandle()
+		 │
+		 ▼
+	15. Interceptor afterCompletion()
+		 │
+		 ▼
+	16. Filters
+		 │
+		 ▼
+	HTTP Response
+	
+	@Configuration
+	@EnableWebSecurity
+	public class SecurityConfig {
+
+		@Bean
+		public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+			http
+				.csrf(csrf -> csrf.disable()) // for REST APIs (optional)
+				.authorizeHttpRequests(auth -> auth
+
+					// ✅ Public endpoints
+					.requestMatchers("/api/public/**").permitAll()
+					.requestMatchers("/auth/**").permitAll()
+
+					// 🔒 Role-based secure endpoints
+					.requestMatchers("/api/admin/**").hasRole("ADMIN")
+					.requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+
+					// 🔒 Everything else requires login
+					.anyRequest().authenticated()
+				)
+
+				// Choose one auth type:
+				.httpBasic(Customizer.withDefaults());  // or JWT / formLogin
+
+			return http.build();
+		}
+	}
+	
+
+	@OneToOne    1 → 1        Employee 	 → EmployeesID      
+	@OneToMany   1 → many     Department → Employees 
+	@ManyToOne   many → 1     Employees  → Department 
+	@ManyToMany  many ↔ many  Employees  ↔ Courses     
+	
+Gradle Commands
+	.\gradlew clean
+	.\gradlew build
+	.\gradlew test
+	.\gradlew bootRun
+	.\gradlew dependencies
+	.\gradlew tasks
+	Get-Process java,javaw -ErrorAction SilentlyContinue
+	Stop-Process -Name java -Force
+	Remove-Item -Recurse -Force .\build
+	
