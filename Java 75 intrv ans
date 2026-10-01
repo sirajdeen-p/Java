@@ -40,6 +40,8 @@
 	equals() compares the Object type - Content
 	hashTable,hashMap,HashTable using the Hasing integer Techinque so when we Override the equals() need to Override hashCode()
 	
+	if we didn't override hashCode(), the two objects can have different hash codes.
+
 	if two obj are same then the hash should be same
 	if two obj hash are same doesnt meant that two obj are equal
 	
