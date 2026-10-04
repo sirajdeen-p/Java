@@ -40,8 +40,6 @@
 	equals() compares the Object type - Content
 	hashTable,hashMap,HashTable using the Hasing integer Techinque so when we Override the equals() need to Override hashCode()
 	
-	if we didn't override hashCode(), the two objects can have different hash codes.
-
 	if two obj are same then the hash should be same
 	if two obj hash are same doesnt meant that two obj are equal
 	
@@ -688,15 +686,40 @@ public class Main {
 	ScheduledExecutorService extends ExecutorService
 	ScheduledThreadPoolExecutor extends ThreadPoolExecutor and implements ScheduledExecutorService
 	
+	sync - step by step opertaion 1 - 2 - 3 Tasks	
+		 - task 1 need to be complete to trigger task 2
+		 
+	async - parallel tasks child tasks no need to wait for the parent task to complete
+	
 35.Future	
+	* it is a interface
+	* to create future we need exectior service
+	* return type of submit is Future and it can be runnable or callable 
+	* Future is an Interface introduced in Java 1.5 - used to create async Tasks
+	* get(long timeout,TimeUnit unit)-> will give wait for result | 
+										if result is not ready it will wait accordingto the time and throw exception interuppt,exceution exception we can cancel tasks according to the time
+	* cancel() -> returns boolean true or false if the result is not ready for the particular time then we can cancel async tasks by using cancel method
+	* isDone() -> verify the tasks is done or not 
+	* isCancelled()-> verify the tasks is cancelled or not 
+	
+	Drawbacks:
+		- there is no exception handling in future
+		- we cannot combine two or more future and the combine that 
+		- we cannot complete the task if something is blocked onlly cancel allowed
+	
 	* we are not able to know the status of the Executor submit so by Future we can see the status 
-	* return type of submit is Future
 	* Interface we can know the result of async task
 	* cancel(), isCancelled(), isDone(), get(), get(long timeout,TimeUnit unit)
 	
 36.Completable Future
+	* it is a interface
 	* intro in java 8 - adavnce of Future
+	* instead of returing the result we can complete the tasks by complete()
 	* provides chaining
+	* supplyAsync   - two async task that can produce result for that we can use 
+	* thenApply()   - used after the supplyAsync() results same thread used - sync mapping function 
+	* thenCompose() - used for flatting the async mapping function future - need order use this same thread used 
+
 	* Future is interface -> child is Completable Future
 	* if we not proving and Excutor Pool it will use the default ForkjoinPool
 	* thenApply() - used after the supplyAsync() same thread used 
