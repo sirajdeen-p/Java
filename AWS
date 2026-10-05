@@ -1,5 +1,3 @@
-	
-			
 AWS:
 	S3 bucket - storage and we can upload files,img,app,folder
 		AWS Region 
@@ -93,4 +91,39 @@ CloudFormations
 			 UPDATE_ROLLBACK_COMPLETE     Update rollback completed                       
 			 DELETE_IN_PROGRESS           Stack deletion is in progress                   
 			 DELETE_COMPLETE              Stack deleted successfully                      
-			 DELETE_FAILED                Stack deletion failed                    
+			 DELETE_FAILED                Stack deletion failed    
+
+springBoot - DockerImg - ECR - ECS - Fargate
+	
+	Fargate 
+		- price based on task size
+		- req network mode awsvpc
+		- AWS managed infra - no EC2 instance to manage
+		
+	EC2	
+		- price based on resource usage
+		- multiple network mode 
+		- self Managed infra using EC2 instance
+	
+	ECS - Elastic Container Register
+	task defintion - docker img
+	create cluster - fargate
+	
+	ECR - Elastic Container Register
+		- it is a repo store docker img 
+		
+	AWS CodeBuild Pipeline:
+	code - git - AWS CodeBuild - Elastic beanStalk
+		- give docker img 
+		- buildspec.yml file to ECR
+			build commands 
+			post commands
+			artifacts
+			jar files   
+		
+	APIGATEWAY AWS:
+	springBoot - elasticBean - Gateway
+	
+	AWS secret Manager:
+		AWS will give Java Code with stored username pwd.. we need to create a Config file and get the username and pwd by using our access key,access secret from IAM role which stored in the properties Files
+		java-sdk-secretmanager dependcy
