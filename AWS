@@ -1,3 +1,5 @@
+
+			
 AWS:
 	S3 bucket - storage and we can upload files,img,app,folder
 		AWS Region 
@@ -68,7 +70,7 @@ CloudFormations
 			2.upload 
 			3.create stack / update stack / delete stack / rollback on failure service
 			4.AWS create resources in correct Order [IAM ROLE - EC2 - S3]
-			5.Update / delete Stack - Forgate Task
+			5.Update / delete Stack - Fargate Task
 			
 		Create Stack:
 			Cloud formation - Stack - Create Stack:
@@ -91,9 +93,9 @@ CloudFormations
 			 UPDATE_ROLLBACK_COMPLETE     Update rollback completed                       
 			 DELETE_IN_PROGRESS           Stack deletion is in progress                   
 			 DELETE_COMPLETE              Stack deleted successfully                      
-			 DELETE_FAILED                Stack deletion failed    
-
-springBoot - DockerImg - ECR - ECS - Fargate
+			 DELETE_FAILED                Stack deletion failed                           
+	
+	springBoot - DockerImg - ECR - ECS - Fargate
 	
 	Fargate 
 		- price based on task size
@@ -106,13 +108,18 @@ springBoot - DockerImg - ECR - ECS - Fargate
 		- self Managed infra using EC2 instance
 	
 	ECS - Elastic Container Register
-	task defintion - docker img
-	create cluster - fargate
+		task defintion name - task size memory - add Container - docker img name - add
+		create cluster - cluster name - create - fargate
+		from tasks we can see and run new tasks and ass task defintion
 	
-	ECR - Elastic Container Register
+	ECR - Elastic Container Register | DockerHub
 		- it is a repo store docker img 
 		
+		SEARCH ECR - REPO - REPO NAME
+		AWS-CLI cmd - DOCKER PUSH
+		
 	AWS CodeBuild Pipeline:
+	
 	code - git - AWS CodeBuild - Elastic beanStalk
 		- give docker img 
 		- buildspec.yml file to ECR
@@ -122,8 +129,37 @@ springBoot - DockerImg - ECR - ECS - Fargate
 			jar files   
 		
 	APIGATEWAY AWS:
-	springBoot - elasticBean - Gateway
+		act as Proxy
+		springBoot - deploy to elasticBean - Create ApiGateway
+		
+		aws console - elsatic beanStalk - create Env - give app name  - domain - platofrm[JAVA 8] - Upload code - create Env - ELasticbean will Create
+		
+		aws console - AWS apigateway - create api - rest api - build api[new / swagger clone] - api Resources - create Method[GET POST DELETE PATCH] - Integartion - security [JWT/AUthenctions] - then Test - then Deploy - Deploy stage - then in stage all api will shown with Url
 	
 	AWS secret Manager:
 		AWS will give Java Code with stored username pwd.. we need to create a Config file and get the username and pwd by using our access key,access secret from IAM role which stored in the properties Files
 		java-sdk-secretmanager dependcy
+		
+	Aws Lambda:
+		- Only Pay as per use if not use no pay
+		
+		Lambda Creation:
+			- aws Console - lamda - create function - function name - runTime support[Java] - Basic Configuration - HandlerClass - mention Handler Class
+			- Environemnr varaiable need to map the key and value key - Function name - value - function name - Upload Jar[DownStream] - Create Test Event and Result
+			- SpringBootRequestHandler interface need springBoot -> public class MyLambdaHandler extends SpringBootRequestHandler<String input, String Op> {}
+			  SpringBootRequestHandler<ApiGatewayProxyRequestEvent input, String Op> {}
+			- Light weight jar need to be used 
+			
+		Trigger
+			- Add Trigger - ApiGateWay - create new Api or Attach New One
+				- http or Rest - Security Jwt or Open - Add
+				
+			Add will give apigateway trigger url 
+			
+			Create Project :
+				- archetype - aws-serverless-sb3
+				- depenedecy 
+						aws servless java conatiner sb3
+				- it will have HandlerClass
+				- assembly-zip or jar
+				- template.yml file
