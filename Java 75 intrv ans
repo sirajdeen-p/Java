@@ -52,7 +52,8 @@
 	new Date Time -     LocalDate date = LocalDate.now(); System.out.println(date);
 	
 11.Functional Interface
-	one Abstract method will be there and n num of static and default method 
+		one Abstract method will be there and n num of static and default method 
+		eg: callable runnable comparable comparator
 	
 	public class MyClass {
 		public static void main(String args[]) {
@@ -303,7 +304,9 @@ import java.util.*;
 			default -> {}
 		}
 
-	SEALED CLASS : ARE NEED TO BE PERMITS THE CLASS WHICH ARE NEEED TO BE EXTEND
+	SEALED CLASS :  to control Inheritance
+					are need to be permits the class which are neeed to be extend
+					permits class or be final, sealed or non-sealed - can be extend by other class
 
 	sealed class A permits B,C {
 		
@@ -331,7 +334,12 @@ import java.util.*;
 		
 	}
 
-	Record:
+	Record: can give constructor
+			it have toString() hasCode() equals()
+			fields are cannot be changes - fields are final
+			can be used in DTO 
+			records are final and cannot be extend or inHert other classes but it can implemt a interface
+			
 	record Person(String name, int age) {
 		
 	}
@@ -392,14 +400,21 @@ import java.util.*;
 	linkedlist changed to Balanced Tree after Java8
 
 	bucket - Arrays of nodes 0 to 15 [Hash, key, value, next]
-	initial capacity - 16
+	initial capacity - 16 - 0 index to 15
 	load factor - 0.75 threshold if reaches 12 it will double the size
 	hashing steps:
 		1.Keys to HashCode[hashFunction]
 		2.HashCode to index [module by capacity - 1]
 
 	HashCollison: whenver the key produce the same Key then collison will occurs so the next will used to store the key,Value	
+	
+	if Collison happen it will go and check the ref and if ref same then value is upadted and if not then it will go to .equals() and compare the content and if it is not same then it will store to the next Ref Node
+	
 	there is only 15 buckets were the keys will be stored in next -> next and equals will be used to retrive the key value
+	
+	put(k,v) -> will have hash(k) method and identify index
+	
+	if null key will be stored in the 0 index
 		
 25.Garbage Collection
 	Heap - young gen - Eden - surviour - surviour - Old Gen
@@ -544,19 +559,45 @@ public class Main {
             System.out.println(map);
 
 31.Comparable vs Comparator
+
+	- Comparable can be achieve by impl Comparable Interface
+	- so we need to oveRide the compareTo() method.. we can use the sorting logic for the Employee Class Object and return the values
+		==    will return 0 
+		a > b will return +1
+		a < b will return -1
+	- if we need to Sort only by the id or name or by age we can use asc or desc
+	- extra code will changing the Logic and cannot use the multiple Object sorting
+	
+	- Comparator can be achieved used by impl Comparator or by Lamda functiion
+	- it uses the compare() with two inputs 
+	- we can sort by multiple Obj id and can sort by age or by name
+	- reduces the Boiler Plant code and can be used in Stream also
+	- if we have a both Comparable and Comparator are impl for a class the Comparator Logic will be work because it have more preference
+			
 	- Comparable is natural Order Sorting if we implements Comparable then we can use for Sorting
 	- Comparator has unOrdered sorting have comparator.comparing
 	
 	comparable
 	- it implemts comparable Interface
 	- natural order it wont ask how need to sort initally asc
-	- compareTo()
+	- compareTo() we need to Override for desc Sorting eg : Collection.sort
+	- its not dynamic hardcoded
+	- single sorting logic we can go with Comparable
+	- sorting can be done by either Id or by Name not by two 
+	
+	e1 == e2 return 0 
+	e1 > e2 return 1 asc
+	e1 < e2 return -1 desc
 
 	comparator
-	- it dont need impl comparable Interface
+	- it impl comparator Interface
 	- it will ask how to sort natural or desc
 	- compare()
+	- we can use lamda also or we can impl Comparator
 	- if conditons we can use for asc or desc sorting techinque
+	- sorting can be done by Id, Name, etc.., 
+	- we can implemt another class and add Logic
+	- comparator give Preference compare to Comparable while incase impl of two
 	
 32.Parallel streams frkJoinPool:commonPool
 	- Splits the work and processes parts in multiple threads.
@@ -739,4 +780,3 @@ public class Main {
 	Error generally represents a serious problem involving the JVM or runtime environment that an application normally shouldn't try to recover from.
 	JVM/runtime problem
 	OutOfMemoryError | StackOverflowError 
-	
