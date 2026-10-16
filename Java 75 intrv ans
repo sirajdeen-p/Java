@@ -1,3 +1,4 @@
+
 1.Which Java version are you using? Why?
 	* Starting from base class i have worked Java1.6, java1.8 and Java 17
 	
@@ -615,7 +616,23 @@ public class Main {
 			Multiple worker threads
 			
 33.MULTITHREADING
+{
 
+	Thread can be created by extending Thread class 
+	
+		thread class disadvantgae like if one class is alreday extend another then there we cannot be extends the Thread Class Java dont support Multiple Inheritance
+		
+		so we can use Runnable Interface and Override Run Method
+		
+		start - create a Thread
+		run - wont create thread it will run in the current thread
+
+
+
+}
+
+	multiple tasks concurrently.
+	
 	New → Runnable → Running → Waiting/Blocked → Terminated
 
 	Process - whenever a program is executed process is created
@@ -637,6 +654,8 @@ public class Main {
 	runnable - dont have return type
 	
 	callable - have return type
+	
+	run() methos is common in Both Runnable and Callable
 	
 	Extends Thread Class:
 	import java.util.*;
@@ -769,14 +788,61 @@ public class Main {
 	* thenComposeAsync() - need order use this executor ForkjoinPool
 	* thenCombine / thenCombineAsync - used to combine two thread
 	
+	 CompletableFuture<String> future =
+            CompletableFuture.supplyAsync(() -> "Java")
+                .thenApply(String::toLowerCase)
+                .exceptionally(ex -> "DEFAULT");
+
+        System.out.println(future.join());
+	
 37.Factory exectior service
 	* ExecutorService es = Executors.newfixedPool(5);
 	
 38.Virtual thread 
 	* jvm can create multiple VT and only when needed it will link to OS thread - java 19
 	* normal thread is dirctly linked to os 
+		Thread.ofVirtual()
 	
 39.Error 
 	Error generally represents a serious problem involving the JVM or runtime environment that an application normally shouldn't try to recover from.
 	JVM/runtime problem
 	OutOfMemoryError | StackOverflowError 
+	
+	S - Single Responsibility - One class should have one responsibility.
+	O - Open/Closed 		  -	Open for extension, closed for modification.
+	L -	Liskov Substitution   -	Child classes should work wherever the parent class is expected.
+	I -	Interface Segregation -	Prefer small, specific interfaces over large interfaces.
+	D -	Dependency Inversion  -	Depend on abstractions, not concrete implementations.
+	
+CUSTOM EXCEPTION:
+
+class CustomException extends Exception{
+  CustomException(String message){
+  super(message);
+}
+}
+
+try{  
+    if(a == null){
+      throw new CustomException("value cannot be null... ");
+    }
+    }catch(CustomException e){
+      System.out.print(e);
+    }
+}
+
+Optional.of(value)			Throws NullPointerException if value is null
+Optional.ofNullable(value)	Returns empty if value is null
+Optional.empty()			Explicitly creates an empty Optional
+	
+	
+	
+AGILE Methods:
+
+	Scrum ceremonies are events where the scrum master, product owner, and development team meet to plan work, discuss work in progress, gather feedback, and more. Scrum ceremonies provide a structured framework for regular communication, keeping the team focused and aligned to improve their processes. 
+	
+	The four main Scrum ceremonies are 
+		- sprint planning
+		- daily stand-up (daily scrum)
+		- sprint review
+		- sprint retrospective.
