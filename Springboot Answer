@@ -20,6 +20,30 @@
 	
 4.@SpringBootApplication – What it does?
 
+	1. JVM starts
+	Loads the Main class and executes main()
+
+	2. SpringApplication.run()
+	Bootstraps the Spring Boot application
+
+	3. Environment preparation
+	Loads properties, profiles and configuration
+
+	4. ApplicationContext creation
+	Creates the Spring IoC container
+
+	5. Bean definitions and auto-configuration
+	Discovers components and registers bean definitions
+
+	6. Bean creation and dependency injection
+	Creates objects, injects dependencies and initializes beans
+
+	7. Embedded server starts
+	Tomcat starts for a typical Spring MVC web application
+
+	8. Application ready
+	Startup callbacks complete; application can handle requests
+
 	SpringBoot Application starts	
 	1.start App (main method)
 	2.prepare env file applications/profiles/properties
@@ -44,6 +68,39 @@
 		
 	@ComponentScan
 		- it will scan for controller services repos and register as them Bean 
+		
+	run() Internal:
+		- create ApplicationContext
+		- check  Application Type [standalone | reactive | webApp ]
+		- Register annotate class bean with the context
+		- create instance tomcatServletConatiner and add context
+		
+	main - run() - createApplicationContext() - applicationType using switch
+	
+Scopes in Bean:
+	singleton 
+	- default : singleton project starting itself bean will be create so it called eager initalisation using Constuctor and the same address will be created when api called
+	- whenever needed if create bean then it is called lazy initalisation
+	- one bean is created and it is resued
+	- if we create three bean using autowired then the 3 bean ref will be same
+	- if we have a 3 autowired then 1 object will be created everytime it called according to the obj ref **
+	- bean is created when needed
+	- All three references point to the same singleton object.
+		
+	prototype 
+		- new instance will be created evry time the hascode will be different
+		- if the controller and the service have mentioned at prototype then evry time all the autowired will be created new ref 
+		- if we have a 3 autowired then 3 object will be created everytime it called **
+		
+	request  
+		- for every api call one instance will be created [SingleTon but every obj will be diff]
+	
+	session
+		- for One complete session same ref Obj will be used
+		- for a session multiple api calls can have same obj
+		- for diff address diff ref will be created
+		- if session and singleton is mixed then error will come at startup Unsatified Dependency Exception
+		- we can use the proxyMode = scopedProxyMode.TARGETCLASS
 		
 5.Annotatiosns 
 	
@@ -161,6 +218,17 @@
 						.body("User found");
 			}
 			
+	HTTP/HTTPS, SSL/TLS
+		- SSL - Secure Socket Layer | Transport Layer
+		- need to configure in the yml file in springboot
+		- server : ssl : 
+			key-alias : name
+			key-store : certifiate path area
+			key-store-type : JKS File Type 
+			key-store-password
+		- to generate certifiate using cmd:
+			keytool -genKey -alias http - storetype JKS - keyalg RSA - keysize 2048 -validity 365 -keystore http-ex.jks
+			
 	@ControllerAdvice 
 		- is used for global exception handling across multiple controllers and returns the custom Exception message
 		@RestControllerAdvice
@@ -227,6 +295,9 @@
 	  @Repository, @Controller, etc.
 	→ Spring creates and manages those objects as Beans
 	→ Spring performs Dependency Injection.
+	
+	Bean LifeCycle:
+		- Obj created - Dependencies Injection - postConstruct/init() - preDestroy.destroy() [CleanUp]
 			
 	HTTP Request
 		 │
@@ -237,7 +308,7 @@
 	2. Web Server (Tomcat)
 		 │
 		 ▼
-	3. Servlet Filters
+	3. Servlet Filters [Authentication Manager - Provider Manager - check which auth need to send]
 		 │
 		 ├── CORS Filter
 		 ├── Logging Filter
@@ -310,6 +381,64 @@
 	HTTP Response
 	
 	@Configuration
+	public class InterceptorConfig implements WebMvcConfigurer {
+
+		@Autowired
+		private Inter myInterceptor;
+
+		@Override
+		public void addInterceptors(InterceptorRegistry registry) {
+			registry.addInterceptor(myInterceptor);
+		}
+	}
+	
+	
+@Component 
+public class Inter implements HandlerInterceptor {
+
+@Override
+public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+        throws Exception {
+			System.out.println("1. preHandle()");
+			System.out.println("3. request" + request);
+            System.out.println("3. response" + response);
+            System.out.println("3. handler" + handler);
+    return HandlerInterceptor.super.preHandle(request, response, handler);
+}
+
+    @Override
+    public void postHandle(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Object handler,
+            ModelAndView modelAndView) {
+
+        System.out.println("3. postHandle()");
+         System.out.println("3. request" + request);
+            System.out.println("3. response" + response);
+            System.out.println("3. handler" + handler);
+            System.out.println("3. modelAndView" + modelAndView);
+
+    }
+
+    @Override
+    public void afterCompletion(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Object handler,
+            Exception ex) {
+
+            System.out.println("4. afterCompletion()");
+            System.out.println("4. request" + request);
+            System.out.println("4. response" + response);
+            System.out.println("4. handler" + handler);
+            System.out.println("4. ex" + ex);
+
+
+    }
+
+		
+	@Configuration
 	@EnableWebSecurity
 	public class SecurityConfig {
 
@@ -339,6 +468,49 @@
 		}
 	}
 	
+One To One:
+	@Entity
+	@Table(name = "test")
+
+	public class TestEntity{
+
+	@Id
+	@GeneratedValue(GeneratingType.IDENTITY)
+
+	Long id;
+	String name;
+
+	@OnetoOne
+	@JoinColumn(name = "address")
+
+	private String address;
+
+
+
+	}
+	
+	
+Many To One:
+	@Entity
+	@Table(name = "test2")
+
+	public class TestEntity1{
+
+	@Id
+	@GeneratedValue(GeneratingType.IDENTITY)
+
+	Long id;
+	String name;
+
+	@ManyToOne(CASCADETYPE.ALL,FETCHTYPE = LAZY)
+	@JoinColumn(name = "address",referencedColumn("id"))
+
+	private String address;
+
+
+
+	}
+	
 
 	@OneToOne    1 → 1        Employee 	 → EmployeesID      
 	@OneToMany   1 → many     Department → Employees 
@@ -356,3 +528,75 @@ Gradle Commands
 	Stop-Process -Name java -Force
 	Remove-Item -Recurse -Force .\build
 	
+	
+Dependencies and Uses:
+	spring-boot-starter-web 		- provides REST Apis GET POST DELETE PATCH REQUESTBODY PathVariable
+	spring-boot-starter-data-jpa    - provides Entity @Get @GeneratedValue JpaRepository Hibernate ORM
+	
+	
+Transactions:
+	propagation Isolation
+	
+	@Transactional(readOnly = true)
+		  true  → This transaction is intended only for reading data
+		  false → Normal transaction; reading + writing allowed
+	
+	Propagation
+		Requires_new - alaways create new Transcation
+	
+
+	
+JWT Token:
+		
+	- without JWT hardcoded values need to pass on the req which is not recommend
+	
+	- the user need to send the userName and pwd for the 1st time for getting the JWT token and after that user can use the JWT for all the req
+	
+	- Header Payload Signarture
+	
+		- Header : Algo and Type
+		
+		- Payload : DATA 
+		
+		- signature : expirt time  and encoded 
+		
+	-Security Level - encription key - 128 bit 256 bit*
+		
+	- Jwts.builder()
+		.setClaims(claims)
+		.setSubject(userName)
+		.setIssuedAt(new Date(System.currentTimeMillis()))
+		.setExpiration(new Date(System.currentTimeMillis()+1000*60*30))
+		.signWith(getSignKey(),SignatureAlgorithm.HS256().compact())
+	
+	Refresh Token :
+	
+		- JWT will have expiration so after exp user need to ReAuthenticate with username pwd and again need to generate JWT token
+		- so Referesh Tokeen can be used instead of ReAuthenticate
+		- we can send a refersh token with JSON and get the Token again without the user name and pwd
+		
+		
+	
+MicroServices:
+
+	Communication - Webclient
+	
+	@Bean
+    public WebClient webClient(WebClient.Builder builder) {
+	
+		 return webClient.get()
+                .uri("/payments/{id}", orderId)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+	
+	}
+	
+Load Balancing:
+	AWS Elastic Load Balancer (ELB) - used Round Robin
+	
+	Vertical Scaling:
+		incerse the CPU SIZEs 2gb RAM to 4gb RAM
+	
+	Horizontal Scaling:
+		inceaarse the instance port 8081 8081 8021 according to the Load
