@@ -1,5 +1,4 @@
-
-			
+		
 AWS:
 	S3 bucket - storage and we can upload files,img,app,folder
 		AWS Region 
@@ -66,10 +65,10 @@ CloudFormations
 		Management Goverance - CloudFormations CloudWatch
 		
 		Steps:
-			1.template - YAML /JSON
+			1.template - YAML* /JSON
 			2.upload 
 			3.create stack / update stack / delete stack / rollback on failure service
-			4.AWS create resources in correct Order [IAM ROLE - EC2 - S3]
+			4.AWS create resources in correct Order [IAM ROLE - ECR - ECS - Fargate]
 			5.Update / delete Stack - Fargate Task
 			
 		Create Stack:
@@ -96,6 +95,8 @@ CloudFormations
 			 DELETE_FAILED                Stack deletion failed                           
 	
 	springBoot - DockerImg - ECR - ECS - Fargate
+	springBoot - elasticBean - ApiGateway
+	springBoot - lambda - ApiGateway
 	
 	Fargate 
 		- price based on task size
@@ -146,6 +147,7 @@ CloudFormations
 		Lambda Creation:
 			- aws Console - lamda - create function - function name - runTime support[Java] - Basic Configuration - HandlerClass - mention Handler Class
 			- Environemnr varaiable need to map the key and value key - Function name - value - function name - Upload Jar[DownStream] - Create Test Event and Result
+			
 			- SpringBootRequestHandler interface need springBoot -> public class MyLambdaHandler extends SpringBootRequestHandler<String input, String Op> {}
 			  SpringBootRequestHandler<ApiGatewayProxyRequestEvent input, String Op> {}
 			- Light weight jar need to be used 
@@ -156,10 +158,34 @@ CloudFormations
 				
 			Add will give apigateway trigger url 
 			
-			Create Project :
+			Create Project for API :
 				- archetype - aws-serverless-sb3
 				- depenedecy 
 						aws servless java conatiner sb3
 				- it will have HandlerClass
 				- assembly-zip or jar
 				- template.yml file
+				
+
+elastic bean:
+	- crete bean - confgr env java - ceate instance and env will up
+
+aws gateway -
+	- console - gateway - configuartion java 8 - method restapi [get post ] - test - stage - deploy
+	
+lambda 
+	- serveless process
+	- console -  lammda - create event - java 8 - env variable [key value ] value is method name and key need to set 
+	in spring boot need to add dependcy and imlme springboot reqhandler<apiprogrxy gate > 
+	
+	and by usign the api gateway need to trigger it 
+
+SnsClient:
+	@Bean
+    public SnsClient snsClient(
+            @Value("${aws.region}") String region) {
+
+        return SnsClient.builder()
+                .region(Region.of(region))
+                .build();
+    }
