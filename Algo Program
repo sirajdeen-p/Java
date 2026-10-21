@@ -210,6 +210,75 @@ Using HashSet:
 	    
 	}
 
+	        
+ADAM NUMBER:
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+
+  //rev func
+  static int rev(int sq){
+      int ans = 0;
+      int rem;
+      while(sq > 0){
+      rem = sq  % 10;
+      ans = ans * 10 + rem;
+      sq  = sq  / 10;
+    }
+    return ans; 
+  }
+
+  //sq func
+  static int sq(int n){
+    return n * n;
+  }
+
+	public static void main(String[] args) {
+    
+    int n = 12;
+    int sq = sq(n);
+    System.out.println(sq); //144
+
+    int rev = rev(sq); //441
+    System.out.println(rev);
+
+    int nRev = rev(n);
+    System.out.println(nRev); //21
+
+    int nRevSq = sq(nRev);
+    System.out.println(nRevSq); //441
+
+    if(rev == nRevSq) System.out.println("adam");
+    else System.out.println("na");
+
+
+  
+      
+
+	}
+}
+		 
+      
+*** pattern
+	int n =5 ;
+	for(int i=1;i<5;i++){
+	   
+	    System.out.println(" ".repeat(n-i) + "*".repeat(2 * i-1));
+	    
+	}      
+	
+		
+    for(int i=0;i<5;i++){
+        
+        for(int j=0;j<=i;j++){
+            
+           System.out.print("*");
+            
+        }System.out.println();
+    }
+
 
 
 
