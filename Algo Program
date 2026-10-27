@@ -279,7 +279,25 @@ public class Main
         }System.out.println();
     }
 
+import java.util.*;
 
+public class Main {
+    public static void main(String[] args) {
+
+        String[] n = {"flower", "flow", "flight"};
+
+        String p = n[0];
+
+        for (int i = 1; i < n.length; i++) {
+
+            while (!n[i].startsWith(p)) {
+                p = p.substring(0, p.length() - 1);
+            }
+        }
+
+        System.out.println(p);
+    }
+}
 
 
 
